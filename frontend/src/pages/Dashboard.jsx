@@ -40,7 +40,7 @@ function Dashboard() {
     <main className="dashboard">
       <section className="welcome-section">
         <p className="eyebrow">LEARNING DASHBOARD</p>
-        <h1>Welcome back, Ganesh</h1>
+        <h1>Welcome back, User</h1>
         <p>Continue building your skills and close your knowledge gaps.</p>
       </section>
 

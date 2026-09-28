@@ -19,7 +19,7 @@ function Navbar() {
           </div>
 
           <div className="profile-info">
-            <span className="profile-name">Ganesh</span>
+            <span className="profile-name">User</span>
             <span className="profile-role">Learner</span>
           </div>
         </div>
