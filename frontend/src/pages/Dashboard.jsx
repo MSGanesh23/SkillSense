@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./Dashboard.css";
 
 import SkillCard from "../components/SkillCard";
 import AddSkillModal from "../components/AddSkillModal";
