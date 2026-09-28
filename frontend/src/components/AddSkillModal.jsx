@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createSkill } from "../services/api";
+import "./AddSkillModal.css";
 
 function AddSkillModal({ isOpen, onClose, onSkillCreated }) {
   const [name, setName] = useState("");
