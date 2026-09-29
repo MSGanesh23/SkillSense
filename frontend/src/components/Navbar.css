@@ -1,76 +1,311 @@
-/* Navbar */
+/* =========================================================
+   Navbar.css
+   Premium Dark SaaS Navbar
+   Fully Compatible with Existing Navbar.jsx & Layout
+   No JSX Changes Required
+========================================================= */
 
-.navbar {
-  height: 72px;
-  padding: 0 28px;
+/* ---------------- Navbar ---------------- */
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.navbar{
+    position: relative;
+    z-index: 100;
 
-  background: #ffffff;
-  border-bottom: 1px solid #e7eaf0;
+    height: 72px;
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    background:
+        radial-gradient(circle at left center, rgba(0,229,255,.06), transparent 25%),
+        linear-gradient(180deg,#0f172a 0%,#0b1120 100%);
+
+    border-bottom: 1px solid rgba(255,255,255,.06);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.28);
 }
 
-.navbar-brand {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+/* =========================================================
+   BRAND (SkillSense Logo)
+========================================================= */
+
+.navbar-brand{
+    position: relative;
+    display: inline-block;
+
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -.6px;
+
+    color: #F8FAFC !important;
+
+    text-decoration: none;
+
+    transition:
+        transform .3s ease,
+        color .3s ease,
+        text-shadow .3s ease;
 }
 
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 22px;
+/* Hover */
+
+.navbar-brand:hover{
+    color: #FFFFFF !important;
+    transform: scale(1.03);
+
+    text-shadow:
+        0 0 12px rgba(0,229,255,.22);
 }
 
-.icon-button {
-  border: none;
-  background: transparent;
-  font-size: 18px;
+/* Premium Underline */
+
+.navbar-brand::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0;
+    height:3px;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(90deg,#22C55E,#00E5FF);
+
+    transition:width .35s ease;
 }
 
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.navbar-brand:hover::after{
+    width:100%;
 }
 
-.profile-avatar {
-  width: 38px;
-  height: 38px;
+/* =========================================================
+   RIGHT SECTION
+========================================================= */
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #172033;
-  color: white;
-
-  font-weight: 600;
+.navbar-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
 }
 
-.profile-info {
-  display: flex;
-  flex-direction: column;
+/* =========================================================
+   NOTIFICATION BUTTON
+========================================================= */
+
+.icon-button{
+    position:relative;
+
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:rgba(255,255,255,.05);
+
+    color:#E2E8F0;
+
+    font-size:1rem;
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
 }
 
-.profile-name {
-  font-size: 14px;
-  font-weight: 600;
+/* Notification Dot */
+
+.icon-button::after{
+    content:"";
+
+    position:absolute;
+
+    top:9px;
+    right:10px;
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#F59E0B;
+
+    box-shadow:
+        0 0 8px rgba(245,158,11,.35);
 }
 
-.profile-role {
-  margin-top: 2px;
-  font-size: 12px;
-  color: #7b8495;
+/* Hover */
+
+.icon-button:hover{
+    transform:translateY(-2px);
+
+    background:rgba(0,229,255,.10);
+
+    box-shadow:
+        0 8px 18px rgba(0,229,255,.16);
 }
 
-/* Layout */
+/* =========================================================
+   PROFILE
+========================================================= */
 
-.app-body {
-  display: flex;
-  min-height: calc(100vh - 72px);
+.profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:6px 10px;
+
+    border-radius:16px;
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.profile:hover{
+    background:rgba(255,255,255,.05);
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.18);
+}
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.profile-avatar{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(135deg,#22C55E,#00E5FF);
+
+    color:white;
+
+    font-weight:800;
+
+    box-shadow:
+        0 6px 16px rgba(0,229,255,.18);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.profile:hover .profile-avatar{
+    transform:
+        rotate(-6deg)
+        scale(1.06);
+
+    box-shadow:
+        0 10px 22px rgba(0,229,255,.24);
+}
+
+/* =========================================================
+   PROFILE INFO
+========================================================= */
+
+.profile-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.profile-name{
+    font-size:.9rem;
+    font-weight:700;
+
+    color:white;
+}
+
+.profile-role{
+    margin-top:2px;
+
+    font-size:.72rem;
+
+    color:#94A3B8;
+}
+
+/* =========================================================
+   Layout (Preserved)
+========================================================= */
+
+.app-body{
+    display:flex;
+    min-height:calc(100vh - 72px);
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media(max-width:768px){
+
+    .navbar{
+        padding:0 18px;
+    }
+
+    .navbar-brand{
+        font-size:1.6rem;
+    }
+
+    .profile-info{
+        display:none;
+    }
+
+    .profile{
+        padding:5px;
+    }
+
+    .navbar-actions{
+        gap:12px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .navbar{
+        padding:0 14px;
+    }
+
+    .navbar-brand{
+        font-size:1.45rem;
+    }
+
+    .icon-button{
+        width:38px;
+        height:38px;
+    }
+
+    .profile-avatar{
+        width:36px;
+        height:36px;
+    }
+
 }

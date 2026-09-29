@@ -1,408 +1,1833 @@
+/* =========================================================
+   SkillDetails.css
+   Premium Dark SaaS Theme
+   Matches Dashboard, Assessment & Results
+   No JSX Changes Required
+========================================================= */
 
-/* Skill Details */
 
-.skill-details {
-  max-width: 1200px;
+/* ================= PAGE ================= */
+
+.skill-details{
+    width:100%;
+    max-width:none;
+    display:flex;
+    flex-direction:column;
+    gap:32px;
+    box-sizing:border-box;
 }
 
-.back-link {
-  display: inline-block;
 
-  margin-bottom: 28px;
+/* ================= BACK BUTTON ================= */
 
-  color: #667085;
-
-  font-size: 13px;
-  font-weight: 600;
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    width:fit-content;
+    padding:10px 18px;
+    border-radius:12px;
+    text-decoration:none;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    color:#E2E8F0;
+    font-weight:600;
+    transition:.3s ease;
 }
 
-.back-link:hover {
-  color: #172033;
+.back-link:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,.08);
+    border-color:rgba(0,229,255,.20);
+    color:#FFFFFF;
 }
 
-.skill-hero {
-  display: flex;
-  align-items: center;
-  gap: 22px;
 
-  padding: 28px;
+/* ================= HERO ================= */
 
-  background: #ffffff;
-
-  border: 1px solid #e7eaf0;
-  border-radius: 14px;
+.skill-hero{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    gap:24px;
+    padding:36px;
+    border-radius:28px;
+    background:linear-gradient(135deg,#111827,#16213e 60%,#0f3460);
+    border:1px solid rgba(255,255,255,.06);
+    box-shadow:
+        0 22px 50px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.05);
+    transition:.45s ease;
 }
 
-.skill-hero-icon {
-  width: 72px;
-  height: 72px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 16px;
-
-  background: #eef2ff;
-  color: #3949ab;
-
-  font-size: 28px;
-  font-weight: 700;
+.skill-hero:hover{
+    transform:translateY(-6px);
+    box-shadow:
+        0 30px 60px rgba(0,0,0,.45),
+        0 0 40px rgba(0,229,255,.12);
 }
 
-.skill-hero h1 {
-  margin: 0;
-
-  font-size: 30px;
-  letter-spacing: -0.8px;
+.skill-hero::before{
+    content:"";
+    position:absolute;
+    top:-90px;
+    right:-70px;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:rgba(0,229,255,.10);
+    filter:blur(45px);
 }
 
-.skill-hero p:last-child {
-  margin: 8px 0 0;
-
-  color: #667085;
-
-  font-size: 14px;
-  line-height: 1.6;
+.skill-hero::after{
+    content:"";
+    position:absolute;
+    bottom:-80px;
+    left:-50px;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(34,197,94,.08);
+    filter:blur(40px);
 }
 
-.learning-overview {
-  margin-top: 40px;
+.skill-hero>*{
+    position:relative;
+    z-index:1;
 }
 
-.learning-overview h2 {
-  margin: 0;
-
-  font-size: 24px;
+.skill-hero-icon{
+    width:82px;
+    height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:22px;
+    background:linear-gradient(135deg,#22C55E,#00E5FF);
+    color:white;
+    font-size:2rem;
+    font-weight:800;
+    box-shadow:0 12px 28px rgba(0,229,255,.20);
 }
 
-.section-description {
-  margin: 8px 0 24px;
-
-  color: #667085;
-
-  font-size: 14px;
+.skill-hero h1{
+    margin:10px 0;
+    color:#FFFFFF;
+    font-size:clamp(2rem,4vw,2.8rem);
+    font-weight:800;
 }
 
-.learning-grid {
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 18px;
+.skill-hero .eyebrow{
+    color:#8EA2C9;
 }
 
-.learning-card {
-  padding: 24px;
 
-  background: #ffffff;
+/* FIXED: Description under Basics of JAVA */
 
-  border: 1px solid #e7eaf0;
-  border-radius: 12px;
+.skill-hero h1 + p{
+    margin:8px 0 0;
+    color:#E2E8F0 !important;
+    font-size:1rem;
+    font-weight:500;
+    line-height:1.7;
+    opacity:1 !important;
+    text-shadow:0 2px 6px rgba(0,0,0,.45);
 }
 
-.learning-card-icon {
-  width: 40px;
-  height: 40px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* =========================================================
+   DELETE BUTTONS
+   CSS ONLY
+   First button  = Delete Skill
+   Second button = Delete All Questions
+========================================================= */
 
-  margin-bottom: 18px;
 
-  border-radius: 9px;
+/* ================= DELETE SKILL ================= */
 
-  background: #f2f4f7;
+.skill-hero > div > div .delete-button:first-of-type{
+    position:relative;
+    overflow:hidden;
 
-  color: #667085;
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
 
-  font-size: 12px;
-  font-weight: 700;
+    min-width:142px;
+    min-height:42px;
+
+    padding:10px 17px !important;
+    margin:0;
+
+    border-radius:12px !important;
+
+    border:1px solid rgba(248,113,113,.35) !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7F1D1D 0%,
+            #B91C1C 45%,
+            #DC2626 100%
+        ) !important;
+
+    color:transparent !important;
+
+    font-size:0 !important;
+    font-weight:700 !important;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 20px rgba(185,28,28,.22),
+        inset 0 1px 0 rgba(255,255,255,.16);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease,
+        background .25s ease;
 }
 
-.learning-card h3 {
-  margin: 0 0 8px;
 
-  font-size: 17px;
+/* Delete Skill visible label */
+
+.skill-hero > div > div .delete-button:first-of-type::after{
+    content:"✦  Delete Skill";
+
+    position:relative;
+    z-index:3;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    font-size:.76rem;
+    font-weight:800;
+    line-height:1;
+
+    letter-spacing:.01em;
+
+    text-shadow:0 1px 3px rgba(0,0,0,.35);
+
+    transition:
+        transform .25s ease,
+        letter-spacing .25s ease;
 }
 
-.learning-card p {
-  min-height: 65px;
 
-  margin: 0;
+/* Delete Skill glass sweep */
 
-  color: #667085;
+.skill-hero > div > div .delete-button:first-of-type::before{
+    content:"";
 
-  font-size: 13px;
-  line-height: 1.6;
+    position:absolute;
+
+    top:-40%;
+    left:-120%;
+
+    width:55%;
+    height:180%;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent,
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.28),
+            rgba(255,255,255,.05),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    transition:left .6s cubic-bezier(.16,1,.3,1);
+
+    pointer-events:none;
+
+    z-index:2;
 }
 
-.coming-soon {
-  display: inline-block;
 
-  margin-top: 18px;
+.skill-hero > div > div .delete-button:first-of-type:hover:not(:disabled){
+    transform:translateY(-3px);
 
-  padding: 5px 9px;
+    background:
+        linear-gradient(
+            135deg,
+            #991B1B 0%,
+            #DC2626 48%,
+            #EF4444 100%
+        ) !important;
 
-  border-radius: 20px;
+    border-color:rgba(248,113,113,.65) !important;
 
-  background: #f2f4f7;
-
-  color: #667085;
-
-  font-size: 11px;
-  font-weight: 600;
+    box-shadow:
+        0 13px 26px rgba(220,38,38,.30),
+        0 0 18px rgba(239,68,68,.10),
+        inset 0 1px 0 rgba(255,255,255,.22);
 }
 
-.learning-card .skill-button {
-  margin-top: 18px;
 
-  opacity: 0.6;
-  cursor: not-allowed;
+.skill-hero > div > div .delete-button:first-of-type:hover:not(:disabled)::before{
+    left:145%;
 }
 
-@media (max-width: 900px) {
-  .learning-grid {
-    grid-template-columns: 1fr;
-  }
+
+.skill-hero > div > div .delete-button:first-of-type:hover:not(:disabled)::after{
+    transform:translateX(1px);
+    letter-spacing:.025em;
 }
 
-@media (max-width: 600px) {
-  .skill-hero {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+
+.skill-hero > div > div .delete-button:first-of-type:active:not(:disabled){
+    transform:translateY(-1px) scale(.98);
+
+    box-shadow:
+        0 6px 13px rgba(185,28,28,.24),
+        inset 0 2px 5px rgba(0,0,0,.18);
 }
 
-/* Topics */
 
-.topics-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Delete Skill loading state */
+
+.skill-hero > div > div .delete-button:first-of-type:disabled::after{
+    content:"◌  Deleting Skill...";
+    opacity:.85;
 }
 
-.topic-card {
-  display: flex;
-  gap: 20px;
 
-  padding: 24px;
+/* ================= DELETE ALL QUESTIONS ================= */
 
-  background: #ffffff;
+.skill-hero > div > div .delete-button:nth-of-type(2){
+    position:relative;
+    overflow:hidden;
 
-  border: 1px solid #e7eaf0;
-  border-radius: 12px;
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+
+    min-width:174px;
+    min-height:42px;
+
+    padding:10px 17px !important;
+    margin:0;
+
+    border-radius:12px !important;
+
+    border:1px solid rgba(251,191,36,.35) !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #78350F 0%,
+            #B45309 45%,
+            #D97706 100%
+        ) !important;
+
+    color:transparent !important;
+
+    font-size:0 !important;
+    font-weight:700 !important;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 20px rgba(217,119,6,.20),
+        inset 0 1px 0 rgba(255,255,255,.16);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease,
+        background .25s ease;
 }
 
-.topic-number {
-  width: 44px;
-  height: 44px;
 
-  flex-shrink: 0;
+/* Delete All Questions visible label */
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.skill-hero > div > div .delete-button:nth-of-type(2)::after{
+    content:"◆  Delete All Questions";
 
-  border-radius: 10px;
+    position:relative;
+    z-index:3;
 
-  background: #eef2ff;
-  color: #3949ab;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-  font-size: 12px;
-  font-weight: 700;
+    color:#FFFFFF;
+
+    font-size:.76rem;
+    font-weight:800;
+    line-height:1;
+
+    letter-spacing:.01em;
+
+    text-shadow:0 1px 3px rgba(0,0,0,.35);
+
+    transition:
+        transform .25s ease,
+        letter-spacing .25s ease;
 }
 
-.topic-content {
-  flex: 1;
+
+/* Delete All Questions glass sweep */
+
+.skill-hero > div > div .delete-button:nth-of-type(2)::before{
+    content:"";
+
+    position:absolute;
+
+    top:-40%;
+    left:-120%;
+
+    width:55%;
+    height:180%;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent,
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.28),
+            rgba(255,255,255,.05),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    transition:left .6s cubic-bezier(.16,1,.3,1);
+
+    pointer-events:none;
+
+    z-index:2;
 }
 
-.topic-content h3 {
-  margin: 0;
 
-  font-size: 18px;
+.skill-hero > div > div .delete-button:nth-of-type(2):hover:not(:disabled){
+    transform:translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #92400E 0%,
+            #D97706 48%,
+            #F59E0B 100%
+        ) !important;
+
+    border-color:rgba(251,191,36,.65) !important;
+
+    box-shadow:
+        0 13px 26px rgba(217,119,6,.28),
+        0 0 18px rgba(245,158,11,.10),
+        inset 0 1px 0 rgba(255,255,255,.22);
 }
 
-.topic-description {
-  margin: 7px 0 18px;
 
-  color: #667085;
-
-  font-size: 13px;
-  line-height: 1.6;
+.skill-hero > div > div .delete-button:nth-of-type(2):hover:not(:disabled)::before{
+    left:145%;
 }
 
-.subtopic-list {
-  display: grid;
 
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 8px 24px;
+.skill-hero > div > div .delete-button:nth-of-type(2):hover:not(:disabled)::after{
+    transform:translateX(1px);
+    letter-spacing:.025em;
 }
 
-.subtopic-item {
-  display: flex;
-  align-items: center;
-  gap: 9px;
 
-  padding: 9px 0;
+.skill-hero > div > div .delete-button:nth-of-type(2):active:not(:disabled){
+    transform:translateY(-1px) scale(.98);
 
-  color: #475467;
-
-  font-size: 13px;
+    box-shadow:
+        0 6px 13px rgba(180,83,9,.24),
+        inset 0 2px 5px rgba(0,0,0,.18);
 }
 
-.subtopic-dot {
-  width: 20px;
-  height: 20px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Delete All Questions loading state */
 
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background: #f2f4f7;
-
-  color: #667085;
-
-  font-size: 10px;
-  font-weight: 700;
+.skill-hero > div > div .delete-button:nth-of-type(2):disabled::after{
+    content:"◌  Deleting...";
+    opacity:.85;
 }
 
-.topic-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ================= DELETE SKILL BUTTON ================= */
 
-  margin-top: 20px;
-  padding-top: 16px;
+.skill-hero .delete-button{
+    position:relative;
+    overflow:hidden;
 
-  border-top: 1px solid #edf0f5;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-  color: #98a2b3;
+    min-height:40px;
+    padding:9px 17px;
 
-  font-size: 12px;
+    border-radius:13px;
+
+    border:1px solid rgba(248,113,113,.28);
+
+    background:
+        linear-gradient(
+            135deg,
+            #991B1B 0%,
+            #DC2626 50%,
+            #B91C1C 100%
+        );
+
+    color:#FFFFFF;
+
+    font-size:0;
+    font-weight:750;
+    letter-spacing:.01em;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 18px rgba(220,38,38,.22),
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -1px 0 rgba(0,0,0,.18);
+
+    transition:
+        transform .28s cubic-bezier(.16,1,.3,1),
+        box-shadow .28s ease,
+        border-color .28s ease,
+        background .28s ease;
 }
 
-.topic-button {
-  padding: 8px 12px;
+.skill-hero .delete-button::after{
+    content:"⌫  Delete Skill";
 
-  border: 1px solid #d8dce5;
-  border-radius: 7px;
+    position:relative;
+    z-index:3;
 
-  background: #ffffff;
-  color: #667085;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-  font-size: 12px;
-  font-weight: 600;
+    color:#FFFFFF;
 
-  opacity: 0.65;
+    font-size:.78rem;
+    font-weight:750;
+    line-height:1;
 
-  cursor: pointer;
+    text-shadow:0 1px 3px rgba(0,0,0,.25);
+
+    transition:
+        transform .28s ease,
+        letter-spacing .28s ease;
 }
 
-.empty-learning-state {
-  padding: 40px;
+.skill-hero .delete-button::before{
+    content:"";
 
-  text-align: center;
+    position:absolute;
 
-  background: #ffffff;
+    top:-20%;
+    left:-120%;
 
-  border: 1px dashed #d8dce5;
-  border-radius: 12px;
+    width:65%;
+    height:140%;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent 0%,
+            rgba(255,255,255,.04) 30%,
+            rgba(255,255,255,.28) 50%,
+            rgba(255,255,255,.04) 70%,
+            transparent 100%
+        );
+
+    transform:skewX(-18deg);
+
+    transition:left .65s cubic-bezier(.16,1,.3,1);
+
+    pointer-events:none;
+    z-index:2;
 }
 
-.empty-learning-state h3 {
-  margin: 0 0 8px;
+.skill-hero .delete-button:hover:not(:disabled){
+    transform:
+        translateY(-3px)
+        scale(1.025);
 
-  font-size: 17px;
+    border-color:rgba(248,113,113,.52);
+
+    background:
+        linear-gradient(
+            135deg,
+            #B91C1C 0%,
+            #EF4444 50%,
+            #DC2626 100%
+        );
+
+    box-shadow:
+        0 13px 25px rgba(220,38,38,.28),
+        0 0 20px rgba(239,68,68,.08),
+        inset 0 1px 0 rgba(255,255,255,.23);
 }
 
-.empty-learning-state p {
-  margin: 0;
-
-  color: #667085;
-
-  font-size: 13px;
+.skill-hero .delete-button:hover:not(:disabled)::before{
+    left:140%;
 }
 
-.assessment-cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-
-  margin-top: 36px;
-  padding: 28px;
-
-  border-radius: 14px;
-
-  background: #172033;
-
-  color: #ffffff;
+.skill-hero .delete-button:hover:not(:disabled)::after{
+    transform:translateX(1px);
+    letter-spacing:.025em;
 }
 
-.assessment-cta .eyebrow {
-  color: #98a2b3;
+.skill-hero .delete-button:active:not(:disabled){
+    transform:
+        translateY(-1px)
+        scale(.99);
+
+    box-shadow:
+        0 7px 15px rgba(220,38,38,.22),
+        inset 0 2px 5px rgba(0,0,0,.18);
 }
 
-.assessment-cta h2 {
-  margin: 0;
-
-  font-size: 22px;
+.skill-hero .delete-button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:0 5px 12px rgba(0,0,0,.15);
 }
 
-.assessment-cta p:last-child {
-  max-width: 650px;
-
-  margin: 8px 0 0;
-
-  color: #c4cad5;
-
-  font-size: 13px;
-  line-height: 1.6;
+.skill-hero .delete-button:disabled::after{
+    opacity:.75;
 }
 
-.assessment-button {
-  flex-shrink: 0;
 
-  padding: 12px 18px;
 
-  border: none;
-  border-radius: 8px;
 
-  background: #ffffff;
-  color: #172033;
+/* ================= LEARNING OVERVIEW ================= */
 
-  font-size: 13px;
-  font-weight: 700;
-
-  opacity: 0.6;
-
-  cursor: pointer;
+.learning-overview{
+    display:flex;
+    flex-direction:column;
+    gap:26px;
 }
 
-@media (max-width: 700px) {
-  .topic-card {
-    flex-direction: column;
-  }
+.learning-overview h2{
+    color:white;
+    font-size:1.9rem;
+}
 
-  .subtopic-list {
-    grid-template-columns: 1fr;
-  }
+.section-description{
+    color:#94A3B8;
+    line-height:1.7;
+}
 
-  .assessment-cta {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 
-  .assessment-button {
-    width: 100%;
-  }
+/* ================= LEARNING GRID ================= */
+
+.learning-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.learning-card{
+    position:relative;
+    overflow:hidden;
+    padding:26px;
+    border-radius:22px;
+    background:linear-gradient(145deg,#182235,#101827);
+    border:1px solid rgba(255,255,255,.05);
+    box-shadow:0 15px 35px rgba(0,0,0,.28);
+    transition:.35s ease;
+}
+
+.learning-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,#22C55E,#00E5FF,#3B82F6);
+    transform:scaleX(.25);
+    transform-origin:left;
+    transition:.35s ease;
+}
+
+.learning-card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+        0 24px 48px rgba(0,0,0,.35),
+        0 0 28px rgba(0,229,255,.12);
+}
+
+.learning-card:hover::before{
+    transform:scaleX(1);
+}
+
+.learning-card-icon{
+    width:46px;
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:18px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#22C55E,#00E5FF);
+    color:white;
+    font-weight:700;
+}
+
+.learning-card h3{
+    color:white;
+}
+
+.learning-card p{
+    color:#B8C5D6;
+    line-height:1.7;
+}
+
+.coming-soon{
+    display:inline-block;
+    padding:7px 12px;
+    border-radius:999px;
+    background:rgba(255,255,255,.05);
+    color:#CBD5E1;
+    font-size:.72rem;
+}
+
+
+/* =========================================================
+   TOPICS & SUB-TOPICS
+   UPDATED SECTION ONLY
+========================================================= */
+
+
+/* ================= TOPICS LIST ================= */
+
+.topics-list{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+}
+
+
+/* ================= TOPIC CARD ================= */
+
+.topic-card{
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    gap:22px;
+
+    width:100%;
+    box-sizing:border-box;
+
+    padding:26px 26px 20px;
+
+    border-radius:24px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(0,229,255,.055),
+            transparent 25%
+        ),
+        linear-gradient(
+            145deg,
+            #182235 0%,
+            #121C2D 55%,
+            #101827 100%
+        );
+
+    border:1px solid rgba(255,255,255,.065);
+
+    box-shadow:
+        0 18px 38px rgba(0,0,0,.30),
+        inset 0 1px 0 rgba(255,255,255,.035);
+
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+
+/* premium top accent */
+
+.topic-card::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #22C55E 0%,
+            #00D4AA 28%,
+            #00E5FF 65%,
+            #3B82F6 100%
+        );
+
+    opacity:.95;
+}
+
+
+/* subtle inner highlight */
+
+.topic-card::after{
+    content:"";
+
+    position:absolute;
+
+    top:3px;
+    right:0;
+
+    width:35%;
+    height:180px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(0,229,255,.045),
+            transparent 70%
+        );
+
+    pointer-events:none;
+}
+
+.topic-card:hover{
+    transform:translateY(-5px);
+
+    border-color:rgba(0,229,255,.14);
+
+    box-shadow:
+        0 25px 48px rgba(0,0,0,.36),
+        0 0 25px rgba(0,229,255,.055),
+        inset 0 1px 0 rgba(255,255,255,.045);
+}
+
+
+/* ================= TOPIC NUMBER ================= */
+
+.topic-number{
+    width:50px;
+    height:50px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-top:1px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #22C55E 0%,
+            #00D4AA 45%,
+            #00C8FF 100%
+        );
+
+    color:#FFFFFF;
+
+    font-size:.84rem;
+
+    font-weight:850;
+
+    box-shadow:
+        0 10px 22px rgba(0,200,255,.16),
+        inset 0 1px 0 rgba(255,255,255,.25);
+
+    position:relative;
+
+    z-index:2;
+}
+
+.topic-number::after{
+    content:"";
+
+    position:absolute;
+
+    inset:1px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    pointer-events:none;
+}
+
+
+/* ================= TOPIC CONTENT ================= */
+
+.topic-content{
+    flex:1;
+    min-width:0;
+
+    display:flex;
+    flex-direction:column;
+
+    position:relative;
+    z-index:2;
+}
+
+.topic-content h3{
+    margin:0;
+
+    color:#F8FAFC;
+
+    font-size:1.35rem;
+
+    font-weight:850;
+
+    letter-spacing:-.35px;
+
+    line-height:1.3;
+}
+
+
+/* ================= TOPIC HEADER ================= */
+
+.topic-header-row{
+    width:100%;
+    box-sizing:border-box;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+
+/* ================= ADD SUB-TOPIC ================= */
+
+.topic-header-row .secondary-button{
+    position:relative;
+
+    flex-shrink:0;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:7px 13px !important;
+
+    border-radius:11px;
+
+    border:1px solid rgba(34,197,94,.20);
+
+    background:
+        linear-gradient(
+            135deg,
+            #22C55E,
+            #16A34A
+        );
+
+    color:#FFFFFF;
+
+    font-size:12px !important;
+
+    font-weight:750;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 7px 17px rgba(34,197,94,.16),
+        inset 0 1px 0 rgba(255,255,255,.17);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease;
+}
+
+.topic-header-row .secondary-button:hover{
+    transform:translateY(-2px);
+
+    filter:brightness(1.06);
+
+    box-shadow:
+        0 10px 21px rgba(34,197,94,.22),
+        0 0 14px rgba(34,197,94,.06);
+}
+
+
+/* ================= TOPIC DESCRIPTION ================= */
+
+.topic-description{
+    color:#AEBED1;
+
+    line-height:1.7;
+
+    font-size:.88rem;
+
+    margin:11px 0 19px;
+
+    max-width:850px;
+}
+
+
+/* ================= SUBTOPICS GRID ================= */
+
+.subtopic-list{
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(300px,1fr)
+        );
+
+    gap:16px;
+
+    width:100%;
+
+    margin-top:1px;
+}
+
+
+/* ================= SUBTOPIC CARD ================= */
+
+.subtopic-card{
+    position:relative;
+    overflow:hidden;
+
+    min-width:0;
+
+    padding:17px;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31,44,65,.94),
+            rgba(19,29,46,.96)
+        );
+
+    border:1px solid rgba(255,255,255,.07);
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+
+/* subtopic accent */
+
+.subtopic-card::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #22C55E,
+            #00E5FF,
+            transparent
+        );
+
+    opacity:.65;
+
+    transition:opacity .3s ease;
+}
+
+.subtopic-card:hover{
+    transform:translateY(-4px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(36,51,75,.97),
+            rgba(19,30,48,.98)
+        );
+
+    border-color:rgba(0,229,255,.14);
+
+    box-shadow:
+        0 16px 31px rgba(0,0,0,.29),
+        0 0 19px rgba(0,229,255,.045);
+}
+
+.subtopic-card:hover::before{
+    opacity:1;
+}
+
+
+/* ================= SUBTOPIC TITLE ================= */
+
+.subtopic-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    min-width:0;
+}
+
+.subtopic-item strong{
+    color:#F1F5F9;
+
+    font-size:.9rem;
+
+    font-weight:750;
+
+    line-height:1.4;
+}
+
+
+/* ================= SUBTOPIC DOT ================= */
+
+.subtopic-dot{
+    width:25px;
+    height:25px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #22C55E,
+            #00D4AA
+        );
+
+    color:#FFFFFF;
+
+    font-size:.68rem;
+
+    font-weight:800;
+
+    box-shadow:
+        0 5px 13px rgba(34,197,94,.15),
+        inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+
+/* ================= SUBTOPIC DESCRIPTION ================= */
+
+.subtopic-description{
+    color:#A8B8CC;
+
+    margin:11px 0;
+
+    font-size:.82rem;
+
+    line-height:1.65;
+}
+
+
+/* ================= LEARNING MATERIALS ================= */
+
+.learning-materials{
+    margin-top:17px;
+
+    padding-top:15px;
+
+    border-top:1px solid rgba(255,255,255,.055);
+}
+
+.learning-materials h4{
+    margin:0 0 10px;
+
+    color:#F1F5F9;
+
+    font-size:.81rem;
+
+    font-weight:800;
+
+    letter-spacing:.01em;
+}
+
+
+/* fixed text visibility */
+
+.learning-materials p{
+    color:#C5D3E6;
+
+    font-size:.81rem;
+
+    line-height:1.7;
+
+    margin:0;
+}
+
+
+/* ================= LEARNING MATERIAL ITEM ================= */
+
+.learning-material-item{
+    padding:12px;
+
+    margin-bottom:9px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.028);
+
+    border:1px solid rgba(255,255,255,.045);
+
+    transition:
+        background .25s ease,
+        border-color .25s ease;
+}
+
+.learning-material-item:hover{
+    background:rgba(255,255,255,.045);
+
+    border-color:rgba(0,229,255,.09);
+}
+
+.learning-material-item strong{
+    color:#F8FAFC;
+
+    font-size:.8rem;
+}
+
+.learning-material-item small{
+    color:#94A3B8;
+
+    display:block;
+
+    margin-top:6px;
+
+    font-size:.7rem;
+}
+
+.learning-material-item a{
+    color:#38DDF8;
+
+    text-decoration:none;
+
+    font-size:.76rem;
+
+    font-weight:700;
+
+    display:inline-block;
+
+    margin-top:7px;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
+}
+
+.learning-material-item a:hover{
+    color:#67E8F9;
+
+    text-decoration:none;
+
+    transform:translateX(2px);
+}
+
+
+/* ================= AI SECTION ================= */
+
+.ai-question-section{
+    margin-top:15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:7px;
+}
+
+
+/* ================= GENERATE AI BUTTON ================= */
+
+/* ================= GENERATE AI BUTTON ================= */
+/* Unique AI Glass / Neon Button */
+
+.topic-button{
+    position:relative;
+    overflow:hidden;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-height:40px;
+
+    padding:9px 17px;
+
+    border-radius:13px;
+
+    border:1px solid rgba(129,140,248,.30);
+
+    /*
+       Deep indigo + violet gives stronger contrast
+       against the dark subtopic card.
+    */
+    background:
+        linear-gradient(
+            135deg,
+            #312E81 0%,
+            #4C1D95 48%,
+            #6D28D9 100%
+        );
+
+    color:#FFFFFF;
+
+    font-size:0;
+
+    font-weight:750;
+
+    letter-spacing:.01em;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 18px rgba(76,29,149,.28),
+        inset 0 1px 0 rgba(255,255,255,.20),
+        inset 0 -1px 0 rgba(0,0,0,.18);
+
+    transition:
+        transform .28s cubic-bezier(.16,1,.3,1),
+        box-shadow .28s ease,
+        border-color .28s ease,
+        background .28s ease;
+}
+
+
+/* =========================================================
+   AI SYMBOL + LABEL
+   Recreates the visible button content using CSS only.
+   Existing JSX text/functionality remains untouched.
+========================================================= */
+
+.topic-button::after{
+    content:"✦  Generate AI Questions";
+
+    position:relative;
+
+    z-index:3;
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    font-size:.78rem;
+
+    font-weight:750;
+
+    line-height:1;
+
+    letter-spacing:.01em;
+
+    text-shadow:
+        0 1px 3px rgba(0,0,0,.25);
+
+    transition:
+        transform .28s ease,
+        letter-spacing .28s ease;
+}
+
+
+/* =========================================================
+   MOVING GLASS REFLECTION
+========================================================= */
+
+.topic-button::before{
+    content:"";
+
+    position:absolute;
+
+    top:-20%;
+    left:-120%;
+
+    width:65%;
+    height:140%;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent 0%,
+            rgba(255,255,255,.04) 30%,
+            rgba(255,255,255,.30) 50%,
+            rgba(255,255,255,.04) 70%,
+            transparent 100%
+        );
+
+    transform:skewX(-18deg);
+
+    transition:left .65s cubic-bezier(.16,1,.3,1);
+
+    pointer-events:none;
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.topic-button:hover:not(:disabled){
+
+    transform:
+        translateY(-3px)
+        scale(1.025);
+
+    border-color:rgba(167,139,250,.55);
+
+    background:
+        linear-gradient(
+            135deg,
+            #3730A3 0%,
+            #5B21B6 48%,
+            #7C3AED 100%
+        );
+
+    box-shadow:
+        0 13px 25px rgba(76,29,149,.34),
+        0 0 22px rgba(139,92,246,.12),
+        inset 0 1px 0 rgba(255,255,255,.24);
+}
+
+.topic-button:hover:not(:disabled)::before{
+    left:140%;
+}
+
+.topic-button:hover:not(:disabled)::after{
+    transform:translateX(1px);
+
+    letter-spacing:.025em;
+}
+
+
+/* =========================================================
+   ACTIVE
+========================================================= */
+
+.topic-button:active:not(:disabled){
+
+    transform:
+        translateY(-1px)
+        scale(.99);
+
+    box-shadow:
+        0 7px 15px rgba(76,29,149,.25),
+        inset 0 2px 5px rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   DISABLED
+========================================================= */
+
+.topic-button:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.15);
+}
+
+.topic-button:disabled::after{
+    opacity:.75;
+}
+
+
+/* ================= AI MESSAGE ================= */
+
+.ai-generation-message{
+    margin:0;
+
+    padding:5px 9px;
+
+    border-radius:8px;
+
+    background:rgba(34,197,94,.06);
+
+    border:1px solid rgba(34,197,94,.10);
+
+    color:#6EE7B7;
+
+    font-size:.72rem;
+
+    font-weight:650;
+
+    line-height:1.5;
+}
+
+
+/* ================= TOPIC FOOTER ================= */
+
+.topic-footer{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-top:19px;
+
+    padding-top:15px;
+
+    border-top:1px solid rgba(255,255,255,.055);
+
+    color:#94A3B8;
+
+    font-size:.75rem;
+}
+
+
+/* ================= EMPTY STATE ================= */
+
+.empty-learning-state{
+    padding:50px;
+    text-align:center;
+    border-radius:22px;
+    background:linear-gradient(145deg,#182235,#101827);
+    border:1px dashed rgba(255,255,255,.12);
+}
+
+.empty-learning-state h3{
+    color:white;
+}
+
+.empty-learning-state p{
+    color:#B8C5D6;
+}
+
+
+/* ================= CTA ================= */
+
+.assessment-cta{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+    padding:34px;
+    border-radius:24px;
+    background:linear-gradient(135deg,#111827,#16213e 60%,#0f3460);
+    border:1px solid rgba(255,255,255,.06);
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+    color:white;
+    transition:.35s ease;
+}
+
+.assessment-cta:hover{
+    transform:translateY(-6px);
+}
+
+.assessment-cta .eyebrow{
+    color:#98A2B3;
+}
+
+.assessment-cta p:last-child{
+    color:#CBD5E1;
+    line-height:1.7;
+}
+
+/* =========================================================
+   START ASSESSMENT
+   Premium Cyan / Emerald CTA
+========================================================= */
+
+.assessment-button{
+    position:relative;
+    overflow:hidden;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:178px;
+    min-height:46px;
+
+    padding:11px 20px;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3bddd5 0%,
+            #2ad6c2 35%,
+            #26bbc3 100%
+        );
+
+    border:1px solid rgba(110,231,183,.32);
+
+    color:transparent !important;
+
+    text-decoration:none;
+
+    font-size:0 !important;
+    font-weight:800;
+
+    letter-spacing:.01em;
+
+    box-shadow:
+        0 10px 24px rgba(6,182,212,.18),
+        0 5px 12px rgba(5,150,105,.16),
+        inset 0 1px 0 rgba(255,255,255,.22);
+
+    transition:
+        transform .28s cubic-bezier(.16,1,.3,1),
+        box-shadow .28s ease,
+        border-color .28s ease,
+        background .28s ease;
+}
+
+
+/* Visible Start Assessment label */
+
+.assessment-button::after{
+    content:"➜  Start Assessment";
+
+    position:relative;
+    z-index:3;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    font-size:.78rem;
+    font-weight:800;
+
+    line-height:1;
+
+    letter-spacing:.015em;
+
+    text-shadow:0 1px 3px rgba(0,0,0,.25);
+
+    transition:
+        transform .28s ease,
+        letter-spacing .28s ease;
+}
+
+
+/* Premium diagonal shine */
+
+.assessment-button::before{
+    content:"";
+
+    position:absolute;
+
+    top:-50%;
+    left:-120%;
+
+    width:55%;
+    height:200%;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent 0%,
+            rgba(255,255,255,.04) 30%,
+            rgba(255,255,255,.32) 50%,
+            rgba(255,255,255,.04) 70%,
+            transparent 100%
+        );
+
+    transform:skewX(-20deg);
+
+    transition:left .65s cubic-bezier(.16,1,.3,1);
+
+    pointer-events:none;
+
+    z-index:2;
+}
+
+
+/* Hover */
+
+.assessment-button:hover{
+    transform:
+        translateY(-4px)
+        scale(1.025);
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669 0%,
+            #10B981 38%,
+            #0891B2 100%
+        );
+
+    border-color:rgba(110,231,183,.62);
+
+    color:transparent !important;
+
+    box-shadow:
+        0 16px 30px rgba(6,182,212,.22),
+        0 7px 18px rgba(5,150,105,.18),
+        0 0 22px rgba(20,184,166,.10),
+        inset 0 1px 0 rgba(255,255,255,.27);
+}
+
+
+.assessment-button:hover::before{
+    left:145%;
+}
+
+
+.assessment-button:hover::after{
+    transform:
+        translateX(2px)
+        scale(1.01);
+
+    letter-spacing:.035em;
+}
+
+
+/* Click */
+
+.assessment-button:active{
+    transform:
+        translateY(-1px)
+        scale(.98);
+
+    box-shadow:
+        0 7px 15px rgba(6,182,212,.18),
+        inset 0 2px 5px rgba(0,0,0,.16);
+}
+
+
+/* ================= ANIMATION ================= */
+
+.skill-hero,
+.topic-card,
+.learning-card,
+.assessment-cta{
+    animation:fadeSkill .55s ease both;
+}
+
+@keyframes fadeSkill{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:992px){
+
+    .learning-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .subtopic-list{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .skill-hero{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:28px;
+    }
+
+    .learning-grid{
+        grid-template-columns:1fr;
+    }
+
+    .topic-card{
+        flex-direction:column;
+        padding:22px;
+    }
+
+    .topic-header-row{
+        align-items:flex-start;
+    }
+
+    .assessment-cta{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .assessment-button{
+        width:100%;
+        text-align:center;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .skill-hero{
+        padding:22px;
+    }
+
+    .topic-card{
+        padding:20px;
+    }
+
+    .assessment-cta{
+        padding:24px;
+    }
+
+    .topic-header-row{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .topic-header-row .secondary-button{
+        width:auto;
+    }
+
 }
