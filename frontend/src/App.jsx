@@ -12,6 +12,7 @@ import SkillDetails from "./pages/SkillDetails";
 import Assessment from "./pages/Assessment";
 import AssessmentResults from "./pages/AssessmentResults";
 import SkillGapAnalysis from "./pages/SkillGapAnalysis";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
           <Routes>
             <Route
               path="/"
+              element={<Home/>}
+            />
+            <Route
+              path="/dashboard"
               element={<Dashboard />}
             />
 
