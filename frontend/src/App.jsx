@@ -13,6 +13,7 @@ import Assessment from "./pages/Assessment";
 import AssessmentResults from "./pages/AssessmentResults";
 import SkillGapAnalysis from "./pages/SkillGapAnalysis";
 import Home from "./pages/Home";
+import AssessmentProgress from "./pages/AssessmentProgress";
 
 function App() {
   return (
@@ -66,6 +67,11 @@ function App() {
             <Route
               path="/assessments/:assessmentId/gaps"
               element={<SkillGapAnalysis />}
+            />
+
+            <Route
+              path="/progress"
+              element={<AssessmentProgress />}
             />
           </Routes>
         </div>

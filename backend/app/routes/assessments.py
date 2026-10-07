@@ -123,7 +123,28 @@ def create_assessment_session(
         db.rollback()
         raise
 
+@router.get("/history")
+def get_assessment_history(
+    db: Session = Depends(get_db),
+):
+    assessments = db.scalars(
+        select(Assessment)
+        .order_by(Assessment.created_at.asc())
+    ).all()
 
+    return [
+        {
+            "id": assessment.id,
+            "skill_id": assessment.skill_id,
+            "title": assessment.title,
+            "status": assessment.status,
+            "total_score": assessment.total_score,
+            "max_score": assessment.max_score,
+            "created_at": assessment.created_at,
+            "completed_at": assessment.completed_at,
+        }
+        for assessment in assessments
+    ]
 
 @router.get(
     "/{assessment_id}",

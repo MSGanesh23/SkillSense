@@ -36,6 +36,16 @@ function Sidebar() {
         </NavLink>
       </nav>
 
+        <NavLink
+          to="/progress"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span>⌂</span>
+          Your Progress
+        </NavLink>
+
       <div className="sidebar-bottom">
         <NavLink to="/" className="sidebar-link">
           <span>⚙</span>
