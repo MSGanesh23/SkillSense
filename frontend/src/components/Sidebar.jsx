@@ -5,6 +5,7 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <nav className="sidebar-nav">
+
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -34,7 +35,6 @@ function Sidebar() {
           <span>✓</span>
           Assessments
         </NavLink>
-      </nav>
 
         <NavLink
           to="/progress"
@@ -45,6 +45,8 @@ function Sidebar() {
           <span>⌂</span>
           Your Progress
         </NavLink>
+
+      </nav>
 
       <div className="sidebar-bottom">
         <NavLink to="/" className="sidebar-link">

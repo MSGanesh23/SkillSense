@@ -1,365 +1,840 @@
 /* =========================================================
-   Sidebar.css
-   Premium Dark SaaS Sidebar
-   Works with existing Sidebar.jsx
-========================================================= */
+   SKILLSENSE — PREMIUM GLASS SIDEBAR
+   ========================================================= */
 
-/* ---------- Sidebar Container ---------- */
+/* ---------------------------------------------------------
+   MAIN SIDEBAR
+   --------------------------------------------------------- */
 
 .sidebar {
     position: sticky;
     top: 0;
+    left: 0;
 
     width: 230px;
-    min-width: 230px;
     height: 100vh;
-    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 
-    padding: 20px 14px;
+    padding: 22px 16px;
+    box-sizing: border-box;
 
     background:
-        radial-gradient(circle at top left, rgba(0,229,255,.08), transparent 30%),
-        linear-gradient(180deg,#0f172a 0%,#0b1120 100%);
+        linear-gradient(
+            145deg,
+            #6B7280 0%,
+            #4B5563 45%,
+            #374151 100%
+        );
 
-    border-right: 1px solid rgba(255,255,255,.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
 
     box-shadow:
-        inset -1px 0 0 rgba(255,255,255,.03),
-        18px 0 40px rgba(0,0,0,.35);
+        8px 0 30px rgba(15, 23, 42, 0.16),
+        inset -1px 0 rgba(255, 255, 255, 0.08);
 
     overflow: hidden;
+
+    z-index: 100;
 }
 
-/* Floating glow */
+
+/* ---------------------------------------------------------
+   SIDEBAR GLASS LIGHT
+   --------------------------------------------------------- */
 
 .sidebar::before {
-
     content: "";
 
     position: absolute;
+    inset: 0;
 
-    top: -120px;
-    left: -80px;
-
-    width: 240px;
-    height: 240px;
-
-    border-radius: 50%;
-
-    background: rgba(0,229,255,.08);
-
-    filter: blur(55px);
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(255, 255, 255, 0.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 45%,
+            rgba(125, 211, 252, 0.12),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.05),
+            transparent 45%,
+            rgba(15, 23, 42, 0.08)
+        );
 
     pointer-events: none;
+    z-index: 0;
 }
+
+
+/* ---------------------------------------------------------
+   SUBTLE DECORATIVE LIGHT
+   --------------------------------------------------------- */
 
 .sidebar::after {
-
     content: "";
 
     position: absolute;
 
-    bottom: -100px;
-    right: -80px;
+    width: 180px;
+    height: 180px;
 
-    width: 220px;
-    height: 220px;
+    top: 10%;
+    left: -100px;
 
     border-radius: 50%;
 
-    background: rgba(34,197,94,.05);
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.12),
+            transparent 68%
+        );
 
-    filter: blur(50px);
+    filter: blur(20px);
 
     pointer-events: none;
+
+    z-index: 0;
 }
 
-/* ---------- Navigation ---------- */
+
+/* ---------------------------------------------------------
+   NAVIGATION CONTAINER
+   --------------------------------------------------------- */
 
 .sidebar-nav {
-
     position: relative;
-    z-index: 2;
 
     display: flex;
     flex-direction: column;
 
     gap: 12px;
+
+    width: 100%;
+
+    z-index: 2;
 }
 
-/* ---------- Sidebar Links ---------- */
+
+/* ---------------------------------------------------------
+   BOTTOM SETTINGS AREA
+   --------------------------------------------------------- */
+
+.sidebar-bottom {
+    position: relative;
+
+    margin-top: auto;
+    padding-top: 18px;
+
+    width: 100%;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   PREMIUM GLASS NAVIGATION BUTTON
+   ========================================================= */
 
 .sidebar-link {
-
     position: relative;
 
     display: flex;
     align-items: center;
+
     gap: 14px;
 
-    padding: 15px 18px;
+    min-height: 54px;
 
-    border-radius: 16px;
+    padding: 11px 15px 11px 11px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            115deg,
+            rgba(255, 255, 255, 0.16),
+            rgba(125, 211, 252, 0.075) 48%,
+            rgba(255, 255, 255, 0.035)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+
+    /*
+       Asymmetric corners make the buttons
+       visually different from normal cards.
+    */
+    border-radius: 17px 10px 17px 10px;
 
     text-decoration: none;
 
-    color: #94a3b8;
+    color: rgba(255, 255, 255, 0.88);
 
-    font-size: .95rem;
+    font-size: 0.94rem;
     font-weight: 600;
 
-    transition:
-        transform .35s cubic-bezier(.16,1,.3,1),
-        background .35s ease,
-        color .35s ease,
-        box-shadow .35s ease;
+    letter-spacing: 0.1px;
 
     overflow: hidden;
+
+    box-shadow:
+        0 5px 14px rgba(0, 76, 145, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+    transform: translate3d(0, 0, 0);
+
+    transition:
+        transform 0.32s cubic-bezier(.16, 1, .3, 1),
+        background 0.32s ease,
+        border-color 0.32s ease,
+        box-shadow 0.32s ease,
+        color 0.25s ease;
 }
 
-/* Shine effect */
+
+/* ---------------------------------------------------------
+   DIAGONAL GLASS REFLECTION
+   --------------------------------------------------------- */
 
 .sidebar-link::before {
-
     content: "";
 
     position: absolute;
 
-    top: 0;
-    left: -120%;
+    top: -60%;
+    left: -100%;
 
-    width: 60%;
-    height: 100%;
+    width: 65%;
+    height: 220%;
 
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.15),
-        transparent
-    );
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.03) 35%,
+            rgba(255, 255, 255, 0.34) 50%,
+            rgba(255, 255, 255, 0.03) 65%,
+            transparent 100%
+        );
 
-    transition: left .6s ease;
+    transform: rotate(18deg);
+
+    opacity: 0;
+
+    transition:
+        left 0.75s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.25s ease;
+
+    pointer-events: none;
+
+    z-index: 3;
 }
 
-/* Left Accent Bar */
+
+/* ---------------------------------------------------------
+   BOTTOM LIGHT TRACK
+   --------------------------------------------------------- */
 
 .sidebar-link::after {
-
     content: "";
 
     position: absolute;
 
-    left: 0;
-    top: 50%;
+    left: 12px;
+    right: 12px;
+    bottom: 0;
 
-    width: 4px;
-    height: 0;
+    height: 2px;
 
-    border-radius: 10px;
+    border-radius: 50%;
 
-    background: #00E5FF;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.75),
+            #38bdf8,
+            rgba(255, 255, 255, 0.75),
+            transparent
+        );
 
-    transform: translateY(-50%);
+    box-shadow:
+        0 0 10px rgba(56, 189, 248, 0.45);
 
-    transition: height .35s ease;
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    opacity: 0;
+
+    transition:
+        transform 0.35s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.3s ease;
+
+    pointer-events: none;
 }
 
-/* ---------- Icons ---------- */
+
+/* =========================================================
+   ICON CHAMBER
+   ========================================================= */
 
 .sidebar-link span {
+    position: relative;
 
-    width: 22px;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 1.05rem;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.20),
+            rgba(125, 211, 252, 0.08)
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.16);
+
+    border-radius: 10px 6px 10px 6px;
+
+    color:
+        rgba(255, 255, 255, 0.92);
+
+    font-size: 1rem;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 3px 8px rgba(0, 74, 145, 0.10);
 
     transition:
-        transform .35s ease,
-        color .35s ease;
+        transform 0.38s cubic-bezier(.16, 1, .3, 1),
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        color 0.3s ease;
 }
 
-/* ---------- Hover ---------- */
 
-.sidebar-link:hover {
+/* ---------------------------------------------------------
+   SMALL LIGHT DOT INSIDE ICON
+   --------------------------------------------------------- */
 
-    color: white;
+.sidebar-link span::after {
+    content: "";
 
-    background: rgba(255,255,255,.05);
+    position: absolute;
 
-    transform:
-        translateX(10px)
-        scale(1.03);
+    width: 4px;
+    height: 4px;
+
+    top: 4px;
+    right: 4px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.25);
 
     box-shadow:
-        0 12px 28px rgba(0,0,0,.35);
+        0 0 0 transparent;
 
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-.sidebar-link:hover span {
-
-    color: #00E5FF;
-
-    transform: scale(1.25) rotate(-6deg);
-}
-
-.sidebar-link:hover::before {
-
-    left: 150%;
-}
-
-.sidebar-link:hover::after {
-
-    height: 28px;
-}
-
-/* ---------- Active Link ---------- */
-
-.sidebar-link.active {
-
-    color: white;
-
-    background: linear-gradient(
-        135deg,
-        rgba(0,229,255,.18),
-        rgba(0,229,255,.08)
-    );
-
-    border: 1px solid rgba(0,229,255,.25);
-
-    box-shadow:
-        0 12px 30px rgba(0,229,255,.22),
-        inset 0 0 20px rgba(0,229,255,.08);
-}
-
-.sidebar-link.active span {
-
-    color: #00E5FF;
-
-    transform: scale(1.15);
-}
-
-.sidebar-link.active::after {
-
-    height: 30px;
-}
-
-/* Click animation */
-
-.sidebar-link:active {
-
-    transform:
-        translateX(6px)
-        scale(.98);
-}
-
-/* ---------- Bottom Section ---------- */
-
-.sidebar-bottom {
-
-    position: relative;
-    z-index: 2;
-
-    margin-top: auto;
-
-    padding-top: 18px;
-    padding-bottom: 6px;
-
-    border-top: 1px solid rgba(255,255,255,.06);
-
-    background: transparent;
-}
-
-/* Settings Hover (Green Accent) */
-
-.sidebar-bottom .sidebar-link:hover {
-
-    box-shadow:
-        0 15px 32px rgba(34,197,94,.18);
-}
-
-.sidebar-bottom .sidebar-link:hover span {
-
-    color: #22C55E;
-}
-
-/* ---------- Scrollbar ---------- */
-
-.sidebar::-webkit-scrollbar {
-
-    width: 5px;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-
-    background: #22304a;
-
-    border-radius: 10px;
-}
 
 /* =========================================================
-   Responsive
-========================================================= */
+   HOVER STATE
+   ========================================================= */
 
-@media (max-width: 992px) {
+.sidebar-link:hover {
+    color: #ffffff;
+
+    transform:
+        translate3d(5px, -2px, 0);
+
+    background:
+        linear-gradient(
+            115deg,
+            rgba(255, 255, 255, 0.29),
+            rgba(125, 211, 252, 0.17) 48%,
+            rgba(255, 255, 255, 0.075)
+        );
+
+    border-color:
+        rgba(255, 255, 255, 0.34);
+
+    box-shadow:
+        0 12px 25px rgba(0, 76, 145, 0.24),
+        0 2px 5px rgba(0, 89, 160, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(56, 189, 248, 0.10);
+
+        letter-spacing: 0.2px;
+}
+
+
+/* ---------------------------------------------------------
+   REFLECTION ANIMATION
+   --------------------------------------------------------- */
+
+.sidebar-link:hover::before {
+    /*
+       Full diagonal glass sweep.
+    */
+    left: 145%;
+    opacity: 1;
+
+    /*
+       Make the reflection feel faster and sharper.
+    */
+    transition:
+        left 0.72s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.18s ease;
+}
+
+
+/* ---------------------------------------------------------
+   BOTTOM LIGHT
+   --------------------------------------------------------- */
+
+.sidebar-link:hover::after {
+    transform: scaleX(1.08);
+    opacity: 1;
+
+    /*
+       Creates a subtle travelling/light-track feeling.
+    */
+    transform-origin: center;
+
+    transition:
+        transform 0.42s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.25s ease;
+}
+
+
+/* ---------------------------------------------------------
+   ICON HOVER
+   --------------------------------------------------------- */
+
+.sidebar-link:hover span {
+    /*
+       ICON COMES FORWARD
+    */
+    transform:
+        translate3d(2px, -3px, 0)
+        rotate(-6deg)
+        scale(1.14);
+
+    color: #ffffff;
+
+    /*
+       KEEPING YOUR EXISTING ICON BACKGROUND.
+    */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 8px 14px rgba(0, 74, 145, 0.18),
+        0 12px 24px rgba(0, 74, 145, 0.10);
+
+    border-color:
+        rgba(255, 255, 255, 0.30);
+
+    /*
+       Premium spring-like motion.
+    */
+    transition:
+        transform 0.42s cubic-bezier(.16, 1, .3, 1),
+        box-shadow 0.32s ease,
+        border-color 0.28s ease;
+}
+
+
+/* ---------------------------------------------------------
+   ICON DOT HOVER
+   --------------------------------------------------------- */
+
+.sidebar-link:hover span::after {
+    background: #ffffff;
+
+    box-shadow:
+        0 0 6px rgba(255, 255, 255, 0.9);
+
+    transform: scale(1.35);
+
+    animation:
+        sidebarDotPulse 0.9s ease-in-out infinite alternate;
+}
+
+
+/* =========================================================
+   ACTIVE NAVIGATION BUTTON
+   ========================================================= */
+
+.sidebar-link.active {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            115deg,
+            rgba(2, 132, 199, 0.38),
+            rgba(14, 165, 233, 0.25) 50%,
+            rgba(125, 211, 252, 0.13)
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.40);
+
+    border-radius:
+        17px 10px 17px 10px;
+
+    transform:
+        translate3d(3px, 0, 0);
+
+    box-shadow:
+        0 10px 26px rgba(0, 76, 145, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24),
+        inset 0 -1px 0 rgba(56, 189, 248, 0.16);
+}
+
+.sidebar-link.active:hover {
+    transform:
+        translate3d(8px, -4px, 0)
+        scale(1.025);
+
+    box-shadow:
+        0 16px 28px rgba(0, 76, 145, 0.26),
+        0 24px 45px rgba(0, 76, 145, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+
+/* ---------------------------------------------------------
+   ACTIVE REFLECTION
+   --------------------------------------------------------- */
+
+.sidebar-link.active::before {
+    left: 145%;
+    opacity: 0.7;
+}
+
+
+/* ---------------------------------------------------------
+   ACTIVE LIGHT TRACK
+   --------------------------------------------------------- */
+
+.sidebar-link.active::after {
+    transform: scaleX(1);
+
+    opacity: 1;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ffffff 20%,
+            #38bdf8 50%,
+            #ffffff 80%,
+            transparent
+        );
+
+    box-shadow:
+        0 0 12px rgba(56, 189, 248, 0.65);
+}
+
+
+/* ---------------------------------------------------------
+   ACTIVE ICON
+   --------------------------------------------------------- */
+
+.sidebar-link.active span {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.32),
+            rgba(125, 211, 252, 0.15)
+        );
+
+    border-color:
+        rgba(255, 255, 255, 0.40);
+
+    transform:
+        scale(1.07);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        0 4px 13px rgba(0, 75, 145, 0.20),
+        0 0 14px rgba(56, 189, 248, 0.22);
+}
+
+
+/* ---------------------------------------------------------
+   ACTIVE ICON DOT
+   --------------------------------------------------------- */
+
+.sidebar-link.active span::after {
+    background: #ffffff;
+
+    box-shadow:
+        0 0 8px rgba(255, 255, 255, 0.95);
+}
+
+
+/* =========================================================
+   CLICK / PRESS EFFECT
+   ========================================================= */
+
+.sidebar-link:active {
+    transform:
+        translate3d(2px, 0, 0)
+        scale(0.975);
+
+    box-shadow:
+        0 4px 10px rgba(0, 70, 140, 0.18);
+
+    transition-duration: 0.08s;
+}
+
+
+/* =========================================================
+   SETTINGS BUTTON
+   ========================================================= */
+
+.sidebar-bottom .sidebar-link {
+    background:
+        linear-gradient(
+            115deg,
+            rgba(255, 255, 255, 0.12),
+            rgba(125, 211, 252, 0.06),
+            rgba(255, 255, 255, 0.025)
+        );
+}
+
+
+/* ---------------------------------------------------------
+   SETTINGS HOVER
+   --------------------------------------------------------- */
+
+.sidebar-bottom .sidebar-link:hover {
+    transform:
+        translate3d(7px, -4px, 0)
+        scale(1.025);
+
+    border-color:
+        rgba(255, 255, 255, 0.30);
+
+    box-shadow:
+        0 14px 24px rgba(0, 76, 145, 0.24),
+        0 22px 42px rgba(0, 76, 145, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+
+/* ---------------------------------------------------------
+   SETTINGS ICON ROTATION
+   --------------------------------------------------------- */
+
+.sidebar-bottom .sidebar-link:hover span {
+    transform:
+        translate3d(2px, -3px, 0)
+        rotate(35deg)
+        scale(1.14);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 8px 14px rgba(0, 74, 145, 0.18),
+        0 12px 24px rgba(0, 74, 145, 0.10);
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
+@media (max-width: 900px) {
 
     .sidebar {
-
         width: 210px;
-        min-width: 210px;
+        padding-left: 13px;
+        padding-right: 13px;
     }
+
+    .sidebar-link {
+        gap: 12px;
+        padding-right: 12px;
+    }
+
 }
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+   ========================================================= */
 
 @media (max-width: 768px) {
 
     .sidebar {
-
         width: 82px;
-        min-width: 82px;
 
-        padding: 18px 10px;
+        padding:
+            20px 11px;
+
+        align-items: center;
     }
 
-    .sidebar-link {
 
+    .sidebar-nav,
+    .sidebar-bottom {
+        width: 100%;
+    }
+
+
+    .sidebar-link {
         justify-content: center;
 
         gap: 0;
 
-        padding: 16px;
+        min-height: 52px;
+
+        padding: 10px;
 
         font-size: 0;
     }
 
+
     .sidebar-link span {
+        width: 34px;
+        min-width: 34px;
+        height: 34px;
 
-        width: auto;
-
-        font-size: 1.25rem;
+        font-size: 1.12rem;
     }
+
 
     .sidebar-link:hover {
+    /*
+       MAIN 3D LIFT
+       The button feels like it is physically
+       floating toward the cursor.
+    */
+    transform:
+        translate3d(7px, -4px, 0)
+        scale(1.025);
 
-        transform: scale(1.08);
-    }
+    /*
+       KEEPING YOUR EXISTING COLOR
+       No background color change.
+    */
+    color: #ffffff;
 
-    .sidebar-link:hover::after {
+    /*
+       Strong depth instead of changing the button color.
+    */
+    box-shadow:
+        0 14px 24px rgba(0, 76, 145, 0.24),
+        0 22px 42px rgba(0, 76, 145, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
-        height: 22px;
-    }
+    /*
+       Slightly stronger glass edge.
+    */
+    border-color:
+        rgba(255, 255, 255, 0.30);
+
+    /*
+       Smooth premium motion.
+    */
+    transition:
+        transform 0.38s cubic-bezier(.16, 1, .3, 1),
+        box-shadow 0.38s cubic-bezier(.16, 1, .3, 1),
+        border-color 0.28s ease;
 }
+
+
+    .sidebar-link.active {
+        transform:
+            translate3d(0, 0, 0);
+    }
+
+
+    .sidebar-link::after {
+        left: 10px;
+        right: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
 
 @media (max-width: 480px) {
 
     .sidebar {
-
         width: 72px;
-        min-width: 72px;
+
+        padding:
+            17px 9px;
+    }
+
+
+    .sidebar-nav {
+        gap: 10px;
+    }
+
+
+    .sidebar-link {
+        min-height: 50px;
+
+        border-radius:
+            15px 9px 15px 9px;
+    }
+
+
+    .sidebar-link span {
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sidebar-link,
+    .sidebar-link span,
+    .sidebar-link::before,
+    .sidebar-link::after {
+        transition: none !important;
+    }
+
+}
+
+@keyframes sidebarDotPulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.5);
     }
 }
