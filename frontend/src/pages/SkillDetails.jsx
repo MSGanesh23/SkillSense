@@ -24,6 +24,7 @@ function SkillDetails() {
   const [loading, setLoading] = useState(true);
   const [generatingSubTopicId, setGeneratingSubTopicId] = useState(null);
   const [generationMessages, setGenerationMessages] = useState({});
+  const [questionCount, setQuestionCount] = useState({});
   const [deletingQuestions, setDeletingQuestions] = useState(false);
   const [deletingSkill, setDeletingSkill] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState("");
@@ -115,6 +116,14 @@ function SkillDetails() {
     );
   }
 
+  function handleCountChange(subTopicId, val) {
+    const num = parseInt(val, 10);
+    setQuestionCount((prev) => ({
+      ...prev,
+      [subTopicId]: isNaN(num) ? 3 : num,
+    }));
+  }
+
   async function handleDeleteSkill() {
     if (
       !window.confirm(
@@ -164,6 +173,9 @@ function SkillDetails() {
   }
 
   async function handleGenerateQuestions(subTopicId) {
+    const rawCount = questionCount[subTopicId];
+    const count = rawCount !== undefined ? parseInt(rawCount, 10) : 3;
+
     try {
       setGeneratingSubTopicId(subTopicId);
 
@@ -172,11 +184,11 @@ function SkillDetails() {
         [subTopicId]: "",
       }));
 
-      await generateQuestions(subTopicId, 3, "medium");
+      await generateQuestions(subTopicId, count, "medium");
 
       setGenerationMessages((previous) => ({
         ...previous,
-        [subTopicId]: "AI questions generated successfully.",
+        [subTopicId]: `Generated ${count} AI question${count > 1 ? "s" : ""} successfully!`,
       }));
     } catch (err) {
       console.error("Failed to generate AI questions:", err);
@@ -412,13 +424,78 @@ function SkillDetails() {
                             )}
                           </div>
 
-                          <div className="ai-question-section">
+                                                  <div
+                            className="ai-question-section"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.75rem",
+                              marginTop: "1rem",
+                              flexWrap: "wrap",
+                            }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                backgroundColor: "rgba(255, 255, 255, 0.05)",
+                                padding: "6px 12px",
+                                borderRadius: "8px",
+                                border: "1px solid rgba(255, 255, 255, 0.12)",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontSize: "0.75rem",
+                                  color: "#94a3b8",
+                                  fontWeight: "600",
+                                  textTransform: "uppercase",
+                                  letterSpacing: "0.5px",
+                                }}
+                              >
+                                Questions:
+                              </span>
+
+                              <input
+                                type="range"
+                                min="1"
+                                max="10"
+                                step="1"
+                                value={
+                                  questionCount[subTopic.id] !== undefined
+                                    ? questionCount[subTopic.id]
+                                    : 3
+                                }
+                                onChange={(e) =>
+                                  handleCountChange(subTopic.id, e.target.value)
+                                }
+                                style={{
+                                  width: "80px",
+                                  accentColor: "#38bdf8",
+                                  cursor: "pointer",
+                                }}
+                              />
+
+                              <span
+                                style={{
+                                  fontSize: "0.85rem",
+                                  color: "#38bdf8",
+                                  fontWeight: "700",
+                                  minWidth: "16px",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {questionCount[subTopic.id] !== undefined
+                                  ? questionCount[subTopic.id]
+                                  : 3}
+                              </span>
+                            </div>
+
                             <button
                               type="button"
                               className="topic-button"
-                              disabled={
-                                generatingSubTopicId === subTopic.id
-                              }
+                              disabled={generatingSubTopicId === subTopic.id}
                               onClick={() =>
                                 handleGenerateQuestions(subTopic.id)
                               }
@@ -429,7 +506,7 @@ function SkillDetails() {
                             </button>
 
                             {generationMessages[subTopic.id] && (
-                              <p className="ai-generation-message">
+                              <p className="ai-generation-message" style={{ width: "100%" }}>
                                 {generationMessages[subTopic.id]}
                               </p>
                             )}

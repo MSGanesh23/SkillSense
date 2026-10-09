@@ -1264,11 +1264,15 @@
 
     display:flex;
 
-    flex-direction:column;
+    flex-direction:row;
 
-    align-items:flex-start;
+    flex-wrap:wrap;
 
-    gap:7px;
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:12px;
 }
 
 
