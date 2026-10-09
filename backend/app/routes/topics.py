@@ -5,6 +5,14 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.db.models.topic import Topic
 from app.db.models.skill import Skill
+from app.db.models.subtopic import SubTopic
+from app.db.models.learning_material import LearningMaterial
+from app.db.models.question import Question, QuestionOption
+from app.db.models.assessment import AssessmentQuestion, LearnerResponse
+from app.db.models.subtopic_performance import SubTopicPerformance
+from app.db.models.mastery import MasteryRecord
+from app.db.schemas.topic import TopicCreate, TopicResponse
+
 from app.db.schemas.topic import TopicCreate, TopicResponse
 
 router = APIRouter(
@@ -91,3 +99,58 @@ def get_topics(
     topics = result.scalars().all()
 
     return topics
+
+@router.delete("/{topic_id}", status_code=status.HTTP_200_OK)
+def delete_topic(
+    skill_id: int,
+    topic_id: int,
+    db: Session = Depends(get_db),
+):
+    topic = db.execute(
+        select(Topic).where(
+            Topic.id == topic_id,
+            Topic.skill_id == skill_id,
+        )
+    ).scalar_one_or_none()
+
+    if topic is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Topic not found.",
+        )
+
+    topic_name = topic.name
+
+    # Collect dependent IDs
+    subtopics = db.scalars(select(SubTopic).where(SubTopic.topic_id == topic_id)).all()
+    subtopic_ids = [s.id for s in subtopics]
+
+    questions = db.scalars(select(Question).where(Question.subtopic_id.in_(subtopic_ids))).all() if subtopic_ids else []
+    question_ids = [q.id for q in questions]
+
+    try:
+        # 1. Delete Question-level dependencies
+        if question_ids:
+            db.query(LearnerResponse).filter(LearnerResponse.question_id.in_(question_ids)).delete(synchronize_session=False)
+            db.query(AssessmentQuestion).filter(AssessmentQuestion.question_id.in_(question_ids)).delete(synchronize_session=False)
+            db.query(QuestionOption).filter(QuestionOption.question_id.in_(question_ids)).delete(synchronize_session=False)
+            db.query(Question).filter(Question.id.in_(question_ids)).delete(synchronize_session=False)
+
+        # 2. Delete Subtopic-level dependencies
+        if subtopic_ids:
+            db.query(SubTopicPerformance).filter(SubTopicPerformance.subtopic_id.in_(subtopic_ids)).delete(synchronize_session=False)
+            db.query(LearningMaterial).filter(LearningMaterial.subtopic_id.in_(subtopic_ids)).delete(synchronize_session=False)
+            db.query(MasteryRecord).filter(MasteryRecord.subtopic_id.in_(subtopic_ids)).delete(synchronize_session=False)
+            db.query(SubTopic).filter(SubTopic.id.in_(subtopic_ids)).delete(synchronize_session=False)
+
+        # 3. Delete Topic
+        db.delete(topic)
+        db.commit()
+
+        return {
+            "message": f"Successfully deleted topic '{topic_name}' and all associated subtopics, materials, and questions.",
+            "deleted_topic_id": topic_id,
+        }
+    except Exception:
+        db.rollback()
+        raise
