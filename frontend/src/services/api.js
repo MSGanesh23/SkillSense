@@ -74,6 +74,12 @@ export async function createTopic(skillId, topic) {
   });
 }
 
+export async function deleteTopic(skillId, topicId) {
+  return apiRequest(`/skills/${skillId}/topics/${topicId}`, {
+    method: "DELETE",
+  });
+}
+
 /* Sub-topics */
 
 export async function getSubTopics(topicId) {
@@ -88,6 +94,12 @@ export async function createSubTopic(topicId, subTopic) {
   return apiRequest(`/topics/${topicId}/subtopics`, {
     method: "POST",
     body: JSON.stringify(subTopic),
+  });
+}
+
+export async function deleteSubTopic(topicId, subTopicId) {
+  return apiRequest(`/topics/${topicId}/subtopics/${subTopicId}`, {
+    method: "DELETE",
   });
 }
 

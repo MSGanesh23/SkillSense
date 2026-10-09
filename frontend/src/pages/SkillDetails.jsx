@@ -12,6 +12,8 @@ import {
   generateQuestions,
   deleteAllQuestionsForSkill,
   deleteSkill,
+  deleteTopic,
+  deleteSubTopic,
 } from "../services/api";
 
 function SkillDetails() {
@@ -142,6 +144,51 @@ function SkillDetails() {
       console.error("Failed to delete skill:", err);
       setDeleteMessage(err.message || "Failed to delete skill.");
       setDeletingSkill(false);
+    }
+  }
+
+  async function handleDeleteTopic(topicId, topicName) {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete the topic "${topicName}"? This will permanently delete all sub-topics, learning materials, and questions under this topic.`,
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await deleteTopic(skillId, topicId);
+      setTopics((prev) => prev.filter((t) => t.id !== topicId));
+    } catch (err) {
+      console.error("Failed to delete topic:", err);
+      alert(err.message || "Failed to delete topic.");
+    }
+  }
+
+  async function handleDeleteSubTopic(topicId, subTopicId, subTopicName) {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete the sub-topic "${subTopicName}"? This will permanently delete all learning materials and questions under this sub-topic.`,
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await deleteSubTopic(topicId, subTopicId);
+      setTopics((prev) =>
+        prev.map((t) =>
+          t.id === topicId
+            ? {
+                ...t,
+                subTopics: t.subTopics.filter((s) => s.id !== subTopicId),
+              }
+            : t,
+        ),
+      );
+    } catch (err) {
+      console.error("Failed to delete sub-topic:", err);
+      alert(err.message || "Failed to delete sub-topic.");
     }
   }
 
@@ -347,17 +394,40 @@ function SkillDetails() {
                   >
                     <h3>{topic.name}</h3>
 
-                    <button
-                      type="button"
-                      className="secondary-button"
-                      style={{
-                        fontSize: "12px",
-                        padding: "5px 10px",
-                      }}
-                      onClick={() => setSelectedTopicForSubTopic(topic)}
-                    >
-                      + Add Sub-topic
-                    </button>
+                    <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        style={{
+                          fontSize: "12px",
+                          padding: "5px 10px",
+                        }}
+                        onClick={() => setSelectedTopicForSubTopic(topic)}
+                      >
+                        + Add Sub-topic
+                      </button>
+
+                      <button
+                        type="button"
+                        style={{
+                          backgroundColor: "rgba(220, 38, 38, 0.2)",
+                          color: "#ef4444",
+                          border: "1px solid rgba(239, 68, 68, 0.4)",
+                          borderRadius: "8px",
+                          padding: "5px 9px",
+                          fontSize: "12px",
+                          cursor: "pointer",
+                          fontWeight: "600",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                        onClick={() => handleDeleteTopic(topic.id, topic.name)}
+                        title="Delete Topic"
+                      >
+                        🗑️ Delete Topic
+                      </button>
+                    </div>
                   </div>
 
                   <p className="topic-description">
@@ -372,9 +442,39 @@ function SkillDetails() {
                     ) : (
                       topic.subTopics.map((subTopic) => (
                         <div className="subtopic-card" key={subTopic.id}>
-                          <div className="subtopic-item">
-                            <span className="subtopic-dot">✓</span>
-                            <strong>{subTopic.name}</strong>
+                          <div
+                            className="subtopic-item"
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              width: "100%",
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                              <span className="subtopic-dot">✓</span>
+                              <strong>{subTopic.name}</strong>
+                            </div>
+
+                            <button
+                              type="button"
+                              style={{
+                                backgroundColor: "rgba(220, 38, 38, 0.15)",
+                                color: "#f87171",
+                                border: "1px solid rgba(239, 68, 68, 0.3)",
+                                borderRadius: "6px",
+                                padding: "3px 8px",
+                                fontSize: "11px",
+                                cursor: "pointer",
+                                fontWeight: "600",
+                              }}
+                              onClick={() =>
+                                handleDeleteSubTopic(topic.id, subTopic.id, subTopic.name)
+                              }
+                              title="Delete Sub-topic"
+                            >
+                              🗑️ Delete
+                            </button>
                           </div>
 
                           {subTopic.description && (
