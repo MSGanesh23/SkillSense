@@ -5,9 +5,13 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.db.models.question import Question, QuestionOption
 from app.db.models.subtopic import SubTopic
+<<<<<<< Updated upstream
 from app.db.models.topic import Topic
 from app.db.models.skill import Skill
 from app.db.schemas.question import QuestionCreate, QuestionResponse
+=======
+from app.db.schemas.question import QuestionCreate, QuestionResponse, QuestionUpdate
+>>>>>>> Stashed changes
 from app.services.ai_generator import generate_questions_for_subtopic
 
 router = APIRouter(
@@ -278,4 +282,47 @@ def get_questions_by_subtopic(
         )
     )
 
+<<<<<<< Updated upstream
     return result.scalars().all()
+=======
+
+@router.put(
+    "/{question_id}",
+    response_model=QuestionResponse,
+    status_code=status.HTTP_200_OK,
+)
+def update_question(
+    subtopic_id: int,
+    question_id: int,
+    question_data: QuestionUpdate,
+    db: Session = Depends(get_db),
+):
+    question = db.execute(
+        select(Question).where(
+            Question.id == question_id,
+            Question.subtopic_id == subtopic_id,
+        )
+    ).scalar_one_or_none()
+
+    if question is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Question not found.",
+        )
+
+    if question_data.question_text is not None:
+        question.question_text = question_data.question_text
+    if question_data.explanation is not None:
+        question.explanation = question_data.explanation
+    if question_data.difficulty is not None:
+        question.difficulty = question_data.difficulty
+
+    try:
+        db.commit()
+        db.refresh(question)
+        return question
+    except Exception:
+        db.rollback()
+        raise
+
+>>>>>>> Stashed changes

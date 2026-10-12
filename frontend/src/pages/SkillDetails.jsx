@@ -675,6 +675,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import AddTopicModal from "../components/AddTopicModal";
 import AddSubTopicModal from "../components/AddSubTopicModal";
+import EditSkillModal from "../components/EditSkillModal";
+import EditTopicModal from "../components/EditTopicModal";
+import EditSubTopicModal from "../components/EditSubTopicModal";
+import { useAuth } from "../context/AuthContext";
 import "./SkillDetails.css";
 
 import {
@@ -692,6 +696,7 @@ import {
 function SkillDetails() {
   const { skillId } = useParams();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
   const [skill, setSkill] = useState(null);
   const [topics, setTopics] = useState([]);
@@ -709,9 +714,16 @@ function SkillDetails() {
   const [deleteMessage, setDeleteMessage] = useState("");
 
   const [isAddTopicModalOpen, setIsAddTopicModalOpen] = useState(false);
+<<<<<<< Updated upstream
   const [selectedTopicForSubTopic, setSelectedTopicForSubTopic] =
     useState(null);
 
+=======
+  const [selectedTopicForSubTopic, setSelectedTopicForSubTopic] = useState(null);
+  const [isEditingSkill, setIsEditingSkill] = useState(false);
+  const [editingTopic, setEditingTopic] = useState(null);
+  const [editingSubTopic, setEditingSubTopic] = useState(null);
+>>>>>>> Stashed changes
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -1070,6 +1082,7 @@ function SkillDetails() {
             {skill.description || "No description available."}
           </p>
 
+<<<<<<< Updated upstream
           <div
             style={{
               marginTop: "1rem",
@@ -1078,6 +1091,28 @@ function SkillDetails() {
               flexWrap: "wrap",
             }}
           >
+=======
+          <div style={{ marginTop: "1rem", display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => setIsEditingSkill(true)}
+                style={{
+                  backgroundColor: "rgba(234, 179, 8, 0.18)",
+                  color: "#fde047",
+                  border: "1px solid rgba(234, 179, 8, 0.4)",
+                  padding: "0.6rem 1.2rem",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                  fontSize: "0.9rem",
+                }}
+              >
+                ✏️ Edit Skill
+              </button>
+            )}
+
+>>>>>>> Stashed changes
             <button
               type="button"
               className="delete-button"
@@ -1220,6 +1255,29 @@ function SkillDetails() {
                         + Add Sub-topic
                       </button>
 
+                      {isAdmin && (
+                        <button
+                          type="button"
+                          style={{
+                            backgroundColor: "rgba(234, 179, 8, 0.18)",
+                            color: "#fde047",
+                            border: "1px solid rgba(234, 179, 8, 0.4)",
+                            borderRadius: "8px",
+                            padding: "5px 9px",
+                            fontSize: "12px",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "4px",
+                          }}
+                          onClick={() => setEditingTopic(topic)}
+                          title="Edit Topic"
+                        >
+                          ✏️ Edit Topic
+                        </button>
+                      )}
+
                       <button
                         type="button"
                         style={{
@@ -1285,6 +1343,7 @@ function SkillDetails() {
                               <strong>{subTopic.name}</strong>
                             </div>
 
+<<<<<<< Updated upstream
                             <button
                               type="button"
                               style={{
@@ -1310,6 +1369,49 @@ function SkillDetails() {
                             >
                               🗑️ Delete
                             </button>
+=======
+                            <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+                              {isAdmin && (
+                                <button
+                                  type="button"
+                                  style={{
+                                    backgroundColor: "rgba(234, 179, 8, 0.15)",
+                                    color: "#fde047",
+                                    border: "1px solid rgba(234, 179, 8, 0.3)",
+                                    borderRadius: "6px",
+                                    padding: "3px 8px",
+                                    fontSize: "11px",
+                                    cursor: "pointer",
+                                    fontWeight: "600",
+                                  }}
+                                  onClick={() => setEditingSubTopic(subTopic)}
+                                  title="Edit Sub-topic"
+                                >
+                                  ✏️ Edit
+                                </button>
+                              )}
+
+                              <button
+                                type="button"
+                                style={{
+                                  backgroundColor: "rgba(220, 38, 38, 0.15)",
+                                  color: "#f87171",
+                                  border: "1px solid rgba(239, 68, 68, 0.3)",
+                                  borderRadius: "6px",
+                                  padding: "3px 8px",
+                                  fontSize: "11px",
+                                  cursor: "pointer",
+                                  fontWeight: "600",
+                                }}
+                                onClick={() =>
+                                  handleDeleteSubTopic(topic.id, subTopic.id, subTopic.name)
+                                }
+                                title="Delete Sub-topic"
+                              >
+                                🗑️ Delete
+                              </button>
+                            </div>
+>>>>>>> Stashed changes
                           </div>
 
                           {subTopic.description && (
@@ -1565,6 +1667,53 @@ function SkillDetails() {
         onClose={() => setSelectedTopicForSubTopic(null)}
         topic={selectedTopicForSubTopic}
         onSubTopicCreated={handleSubTopicCreated}
+      />
+
+      <EditSkillModal
+        isOpen={isEditingSkill}
+        skill={skill}
+        onClose={() => setIsEditingSkill(false)}
+        onSkillUpdated={(updatedSkill) => {
+          setSkill(updatedSkill);
+        }}
+      />
+
+      <EditTopicModal
+        isOpen={Boolean(editingTopic)}
+        skillId={skillId}
+        topic={editingTopic}
+        onClose={() => setEditingTopic(null)}
+        onTopicUpdated={(updatedTopic) => {
+          setTopics((prevTopics) =>
+            prevTopics.map((t) =>
+              t.id === updatedTopic.id
+                ? { ...t, name: updatedTopic.name, description: updatedTopic.description }
+                : t
+            )
+          );
+        }}
+      />
+
+      <EditSubTopicModal
+        isOpen={Boolean(editingSubTopic)}
+        subtopic={editingSubTopic}
+        onClose={() => setEditingSubTopic(null)}
+        onSubTopicUpdated={(updatedSubTopic) => {
+          setTopics((prevTopics) =>
+            prevTopics.map((t) => ({
+              ...t,
+              subTopics: t.subTopics.map((s) =>
+                s.id === updatedSubTopic.id
+                  ? {
+                      ...s,
+                      name: updatedSubTopic.name,
+                      description: updatedSubTopic.description,
+                    }
+                  : s
+              ),
+            }))
+          );
+        }}
       />
     </main>
   );

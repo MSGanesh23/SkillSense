@@ -13,6 +13,12 @@ class SubTopicCreate(BaseModel):
 
     model_config = ConfigDict(str_whitespace_strip=True)
 
+class SubTopicUpdate(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=100)
+    description: str | None = Field(default=None, max_length=500)
+
+    model_config = ConfigDict(str_whitespace_strip=True)
+
 class SubTopicResponse(BaseModel):
     id : int
     topic_id : int

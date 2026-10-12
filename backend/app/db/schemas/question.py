@@ -29,6 +29,12 @@ class QuestionCreate(QuestionBase):
     options: List[QuestionOptionCreate]
 
 
+class QuestionUpdate(BaseModel):
+    question_text: Optional[str] = None
+    explanation: Optional[str] = None
+    difficulty: Optional[str] = None
+
+
 class QuestionResponse(QuestionBase):
     id: int
     subtopic_id: int

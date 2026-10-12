@@ -10,7 +10,7 @@ from app.db.models.question import Question, QuestionOption
 from app.db.models.assessment import AssessmentQuestion, LearnerResponse
 from app.db.models.subtopic_performance import SubTopicPerformance
 from app.db.models.mastery import MasteryRecord
-from app.db.schemas.subtopic import SubTopicCreate, SubTopicResponse
+from app.db.schemas.subtopic import SubTopicCreate, SubTopicResponse, SubTopicUpdate
 
 router = APIRouter(
     prefix="/topics/{topic_id}/subtopics",
@@ -96,6 +96,59 @@ def get_subtopics(
     subtopics = result.scalars().all()
 
     return subtopics
+
+
+@router.put(
+    "/{subtopic_id}",
+    response_model=SubTopicResponse,
+    status_code=status.HTTP_200_OK,
+)
+def update_subtopic(
+    topic_id: int,
+    subtopic_id: int,
+    subtopic_data: SubTopicUpdate,
+    db: Session = Depends(get_db),
+):
+    subtopic = db.execute(
+        select(SubTopic).where(
+            SubTopic.id == subtopic_id,
+            SubTopic.topic_id == topic_id,
+        )
+    ).scalar_one_or_none()
+
+    if subtopic is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="SubTopic not found.",
+        )
+
+    if subtopic_data.name is not None and subtopic_data.name != subtopic.name:
+        existing_subtopic = db.execute(
+            select(SubTopic).where(
+                SubTopic.topic_id == topic_id,
+                SubTopic.name == subtopic_data.name,
+                SubTopic.id != subtopic_id,
+            )
+        ).scalar_one_or_none()
+
+        if existing_subtopic:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="A subtopic with this name already exists in this topic.",
+            )
+        subtopic.name = subtopic_data.name
+
+    if subtopic_data.description is not None:
+        subtopic.description = subtopic_data.description
+
+    try:
+        db.commit()
+        db.refresh(subtopic)
+        return subtopic
+    except Exception:
+        db.rollback()
+        raise
+
 
 @router.delete("/{subtopic_id}", status_code=status.HTTP_200_OK)
 def delete_subtopic(

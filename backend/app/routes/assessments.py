@@ -1,16 +1,18 @@
 import random
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.core.deps import get_optional_current_user
 from app.db.database import get_db
 from app.db.models.assessment import Assessment, AssessmentQuestion, LearnerResponse
 from app.db.models.question import Question, QuestionOption
 from app.db.models.skill import Skill
 from app.db.models.subtopic import SubTopic
 from app.db.models.topic import Topic
+from app.db.models.user import User
 from app.db.schemas.assessment import (
     AssessmentCreate,
     AssessmentResultResponse,
@@ -34,6 +36,7 @@ router = APIRouter(
 )
 def create_assessment_session(
     data: AssessmentCreate,
+    current_user: Optional[User] = Depends(get_optional_current_user),
     db: Session = Depends(get_db),
 ):
     skill = db.execute(
@@ -72,7 +75,9 @@ def create_assessment_session(
     sampled_questions = random.sample(questions, k=sample_count)
 
     title = data.title or f"{skill.name} Assessment"
+    user_id = current_user.id if current_user else None
     assessment = Assessment(
+        user_id=user_id,
         skill_id=data.skill_id,
         title=title,
         status="in_progress",
@@ -125,12 +130,23 @@ def create_assessment_session(
 
 @router.get("/history")
 def get_assessment_history(
+    current_user: Optional[User] = Depends(get_optional_current_user),
     db: Session = Depends(get_db),
 ):
-    assessments = db.scalars(
-        select(Assessment)
-        .order_by(Assessment.created_at.asc())
-    ).all()
+    query = select(Assessment).order_by(Assessment.created_at.asc())
+    if current_user and current_user.role != "admin":
+        user_assessments = db.scalars(
+            select(Assessment)
+            .where(Assessment.user_id == current_user.id)
+            .order_by(Assessment.created_at.asc())
+        ).all()
+        # If user has specific assessments, show those; otherwise show unassigned
+        if user_assessments:
+            assessments = user_assessments
+        else:
+            assessments = db.scalars(query).all()
+    else:
+        assessments = db.scalars(query).all()
 
     return [
         {

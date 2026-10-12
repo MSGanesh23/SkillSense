@@ -11,6 +11,10 @@ class Assessment(Base):
     __tablename__ = "assessments"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    user_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("users.id"),
+        nullable=True,
+    )
     skill_id: Mapped[int] = mapped_column(
         ForeignKey("skills.id"),
         nullable=False,
@@ -42,6 +46,9 @@ class Assessment(Base):
         nullable=True,
     )
 
+    user: Mapped[Optional["User"]] = relationship(
+        back_populates="assessments",
+    )
     skill: Mapped["Skill"] = relationship()
     assessment_questions: Mapped[List["AssessmentQuestion"]] = relationship(
         back_populates="assessment",

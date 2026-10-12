@@ -13,6 +13,12 @@ class TopicCreate(BaseModel):
 
     model_config = ConfigDict(str_whitespace_strip=True)
 
+class TopicUpdate(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=100)
+    description: str | None = Field(default=None, max_length=500)
+
+    model_config = ConfigDict(str_whitespace_strip=True)
+
 class TopicResponse(BaseModel):
     id : int
     skill_id : int

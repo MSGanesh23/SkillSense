@@ -78,6 +78,9 @@ def seed_database():
                         db.add(QuestionOption(question_id=q.id, option_text=opt.option_text, is_correct=opt.is_correct))
                 db.commit()
 
+        # 3. Default Users
+        seed_default_users(db)
+
         print("✅ Database successfully seeded!")
 
     except Exception as e:
@@ -86,6 +89,45 @@ def seed_database():
         raise e
     finally:
         db.close()
+
+
+def seed_default_users(db):
+    from app.db.models.user import User
+    from app.db.models.assessment import Assessment
+    from app.core.security import hash_password
+
+    # 1. Admin user
+    admin = db.query(User).filter(User.email == "admin@skillsense.com").first()
+    if not admin:
+        admin = User(
+            name="Admin User",
+            email="admin@skillsense.com",
+            password_hash=hash_password("admin123"),
+            role="admin",
+        )
+        db.add(admin)
+        db.commit()
+        db.refresh(admin)
+
+    # 2. Learner user
+    learner = db.query(User).filter(User.email == "learner@skillsense.com").first()
+    if not learner:
+        learner = User(
+            name="Ganesh",
+            email="learner@skillsense.com",
+            password_hash=hash_password("learner123"),
+            role="user",
+        )
+        db.add(learner)
+        db.commit()
+        db.refresh(learner)
+
+    # 3. Associate unassigned assessments with the default learner
+    unassigned = db.query(Assessment).filter(Assessment.user_id.is_(None)).all()
+    if unassigned:
+        for a in unassigned:
+            a.user_id = learner.id
+        db.commit()
 
 
 if __name__ == "__main__":

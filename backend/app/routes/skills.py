@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.db.models.skill import Skill
-from app.db.schemas.skill import SkillCreate, SkillResponse
+from app.db.schemas.skill import SkillCreate, SkillResponse, SkillUpdate
 from app.db.models.topic import Topic
 from app.db.models.subtopic import SubTopic
 from app.db.models.learning_material import LearningMaterial
@@ -50,6 +50,45 @@ def get_skills(db: Session = Depends(get_db)):
     result = db.execute(select(Skill))
     skills = result.scalars().all()
     return skills
+
+
+@router.put("/{skill_id}", response_model=SkillResponse, status_code=status.HTTP_200_OK)
+def update_skill(
+    skill_id: int,
+    skill_data: SkillUpdate,
+    db: Session = Depends(get_db),
+):
+    skill = db.execute(
+        select(Skill).where(Skill.id == skill_id)
+    ).scalar_one_or_none()
+
+    if skill is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Skill not found.",
+        )
+
+    if skill_data.name is not None and skill_data.name != skill.name:
+        existing_skill = db.execute(
+            select(Skill).where(Skill.name == skill_data.name, Skill.id != skill_id)
+        ).scalar_one_or_none()
+        if existing_skill:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="A skill with this name already exists.",
+            )
+        skill.name = skill_data.name
+
+    if skill_data.description is not None:
+        skill.description = skill_data.description
+
+    try:
+        db.commit()
+        db.refresh(skill)
+        return skill
+    except Exception:
+        db.rollback()
+        raise
 
 
 @router.delete("/{skill_id}", status_code=status.HTTP_200_OK)

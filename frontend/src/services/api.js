@@ -194,13 +194,29 @@
 
 const API_BASE_URL = "/api";
 
+export function getAuthToken() {
+  return localStorage.getItem("skillsense_token");
+}
+
+export function setAuthToken(token) {
+  if (token) {
+    localStorage.setItem("skillsense_token", token);
+  } else {
+    localStorage.removeItem("skillsense_token");
+  }
+}
+
 async function apiRequest(endpoint, options = {}) {
+  const token = getAuthToken();
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(options.headers || {}),
+  };
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
     ...options,
+    headers,
   });
 
   let data = null;
@@ -238,6 +254,13 @@ export async function createSkill(skill) {
   });
 }
 
+export async function updateSkill(skillId, data) {
+  return apiRequest(`/skills/${skillId}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
 export async function deleteSkill(skillId) {
   return apiRequest(`/skills/${skillId}`, {
     method: "DELETE",
@@ -267,6 +290,13 @@ export async function createTopic(skillId, topic) {
   });
 }
 
+export async function updateTopic(skillId, topicId, data) {
+  return apiRequest(`/skills/${skillId}/topics/${topicId}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
 export async function deleteTopic(skillId, topicId) {
   return apiRequest(`/skills/${skillId}/topics/${topicId}`, {
     method: "DELETE",
@@ -287,6 +317,13 @@ export async function createSubTopic(topicId, subTopic) {
   return apiRequest(`/topics/${topicId}/subtopics`, {
     method: "POST",
     body: JSON.stringify(subTopic),
+  });
+}
+
+export async function updateSubTopic(topicId, subTopicId, data) {
+  return apiRequest(`/topics/${topicId}/subtopics/${subTopicId}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
   });
 }
 
@@ -385,4 +422,43 @@ export async function createTargetedRetest(assessmentId) {
 
 export async function getSkillMastery(skillId) {
   return apiRequest(`/skills/${skillId}/mastery`);
+}
+
+/* Questions */
+
+export async function updateQuestion(subTopicId, questionId, data) {
+  return apiRequest(`/subtopics/${subTopicId}/questions/${questionId}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
+/* Authentication */
+
+export async function loginUser(email, password) {
+  return apiRequest("/auth/login", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
+}
+
+export async function registerUser(name, email, password, role = "user") {
+  return apiRequest("/auth/register", {
+    method: "POST",
+    body: JSON.stringify({ name, email, password, role }),
+  });
+}
+
+export async function getMe() {
+  return apiRequest("/auth/me");
+}
+
+/* Admin */
+
+export async function getUsersPerformanceSummary() {
+  return apiRequest("/admin/users/performance-summary");
+}
+
+export async function getUserAssessments(userId) {
+  return apiRequest(`/admin/users/${userId}/assessments`);
 }

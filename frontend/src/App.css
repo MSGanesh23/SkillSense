@@ -1,3 +1,22 @@
 .app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 72px);
+  width: 100%;
+}
+
+.app-body.no-sidebar {
+  justify-content: center;
+}
+
+.app-body > main,
+.app-body > div {
+  flex: 1;
+  min-width: 0;
 }

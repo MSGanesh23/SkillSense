@@ -6,6 +6,7 @@ from app.db.models.question import Question, QuestionOption
 from app.db.models.assessment import Assessment, AssessmentQuestion, LearnerResponse
 from app.db.models.subtopic_performance import SubTopicPerformance
 from app.db.models.mastery import MasteryRecord
+from app.db.models.user import User
 
 __all__ = [
     "Skill",
@@ -19,6 +20,7 @@ __all__ = [
     "LearnerResponse",
     "SubTopicPerformance",
     "MasteryRecord",
+    "User",
 ]
 
 

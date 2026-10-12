@@ -11,9 +11,7 @@ from app.db.models.question import Question, QuestionOption
 from app.db.models.assessment import AssessmentQuestion, LearnerResponse
 from app.db.models.subtopic_performance import SubTopicPerformance
 from app.db.models.mastery import MasteryRecord
-from app.db.schemas.topic import TopicCreate, TopicResponse
-
-from app.db.schemas.topic import TopicCreate, TopicResponse
+from app.db.schemas.topic import TopicCreate, TopicResponse, TopicUpdate
 
 router = APIRouter(
     prefix="/skills/{skill_id}/topics",
@@ -99,6 +97,59 @@ def get_topics(
     topics = result.scalars().all()
 
     return topics
+
+
+@router.put(
+    "/{topic_id}",
+    response_model=TopicResponse,
+    status_code=status.HTTP_200_OK,
+)
+def update_topic(
+    skill_id: int,
+    topic_id: int,
+    topic_data: TopicUpdate,
+    db: Session = Depends(get_db),
+):
+    topic = db.execute(
+        select(Topic).where(
+            Topic.id == topic_id,
+            Topic.skill_id == skill_id,
+        )
+    ).scalar_one_or_none()
+
+    if topic is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Topic not found.",
+        )
+
+    if topic_data.name is not None and topic_data.name != topic.name:
+        existing_topic = db.execute(
+            select(Topic).where(
+                Topic.skill_id == skill_id,
+                Topic.name == topic_data.name,
+                Topic.id != topic_id,
+            )
+        ).scalar_one_or_none()
+
+        if existing_topic:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="A topic with this name already exists in this skill.",
+            )
+        topic.name = topic_data.name
+
+    if topic_data.description is not None:
+        topic.description = topic_data.description
+
+    try:
+        db.commit()
+        db.refresh(topic)
+        return topic
+    except Exception:
+        db.rollback()
+        raise
+
 
 @router.delete("/{topic_id}", status_code=status.HTTP_200_OK)
 def delete_topic(

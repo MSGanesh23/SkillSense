@@ -4,8 +4,10 @@ import "./Dashboard.css";
 import SkillCard from "../components/SkillCard";
 import AddSkillModal from "../components/AddSkillModal";
 import { getSkills } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 function Dashboard() {
+  const { user } = useAuth();
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -36,11 +38,13 @@ function Dashboard() {
     setSkills((prevSkills) => [...prevSkills, newSkill]);
   }
 
+  const displayName = user?.name ? user.name : "Learner";
+
   return (
     <main className="dashboard">
       <section className="welcome-section">
         <p className="eyebrow">LEARNING DASHBOARD</p>
-        <h1>Welcome back, User</h1>
+        <h1>Welcome back, {displayName}</h1>
         <p>Continue building your skills and close your knowledge gaps.</p>
       </section>
 

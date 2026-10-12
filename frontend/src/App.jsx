@@ -2,8 +2,12 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
+  useLocation,
 } from "react-router-dom";
 
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
@@ -12,70 +16,173 @@ import SkillDetails from "./pages/SkillDetails";
 import Assessment from "./pages/Assessment";
 import AssessmentResults from "./pages/AssessmentResults";
 import SkillGapAnalysis from "./pages/SkillGapAnalysis";
-import Home from "./pages/Home";
 import AssessmentProgress from "./pages/AssessmentProgress";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
+
+function RootRoute() {
+  const { isAuthenticated, loading, isAdmin } = useAuth();
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "75vh",
+          color: "#94a3b8",
+        }}
+      >
+        Loading SkillSense...
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Navigate to={isAdmin ? "/admin" : "/dashboard"} replace />;
+}
+
+function LoginRoute() {
+  const { isAuthenticated, loading, isAdmin } = useAuth();
+
+  if (loading) return null;
+
+  if (isAuthenticated) {
+    return <Navigate to={isAdmin ? "/admin" : "/dashboard"} replace />;
+  }
+
+  return <Login />;
+}
+
+function AppContent() {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+
+  return (
+    <div className="app">
+      <Navbar />
+
+      <div className={`app-body ${!isAuthenticated || isLoginPage ? "no-sidebar" : ""}`}>
+        {isAuthenticated && !isLoginPage && <Sidebar />}
+
+        <Routes>
+          {/* Public Authentication Route */}
+          <Route path="/login" element={<LoginRoute />} />
+
+          {/* Root Route — Redirects to Login if unauthenticated, or to appropriate Dashboard */}
+          <Route path="/" element={<RootRoute />} />
+
+          {/* Protected Learner & Common Routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/skills/:skillId"
+            element={
+              <ProtectedRoute>
+                <SkillDetails />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/skills/:skillId/assessment"
+            element={
+              <ProtectedRoute>
+                <Assessment />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/assessments/:assessmentId/retest"
+            element={
+              <ProtectedRoute>
+                <Assessment />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/assessments/:assessmentId/results"
+            element={
+              <ProtectedRoute>
+                <AssessmentResults />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/assessment-results"
+            element={
+              <ProtectedRoute>
+                <AssessmentResults />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/skills/:skillId/gaps"
+            element={
+              <ProtectedRoute>
+                <SkillGapAnalysis />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/assessments/:assessmentId/gaps"
+            element={
+              <ProtectedRoute>
+                <SkillGapAnalysis />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/progress"
+            element={
+              <ProtectedRoute>
+                <AssessmentProgress />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Protected Administrator-Only Route */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute adminOnly={true}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
-        <Navbar />
-
-        <div className="app-body">
-          <Sidebar />
-
-          <Routes>
-            <Route
-              path="/"
-              element={<Home/>}
-            />
-            <Route
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-
-            <Route
-              path="/skills/:skillId"
-              element={<SkillDetails />}
-            />
-
-            <Route
-              path="/skills/:skillId/assessment"
-              element={<Assessment />}
-            />
-
-            <Route
-              path="/assessments/:assessmentId/retest"
-              element={<Assessment />}
-            />
-
-            <Route
-              path="/assessments/:assessmentId/results"
-              element={<AssessmentResults />}
-            />
-
-            <Route
-              path="/assessment-results"
-              element={<AssessmentResults />}
-            />
-
-            <Route
-              path="/skills/:skillId/gaps"
-              element={<SkillGapAnalysis />}
-            />
-
-            <Route
-              path="/assessments/:assessmentId/gaps"
-              element={<SkillGapAnalysis />}
-            />
-
-            <Route
-              path="/progress"
-              element={<AssessmentProgress />}
-            />
-          </Routes>
-        </div>
-      </div>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
