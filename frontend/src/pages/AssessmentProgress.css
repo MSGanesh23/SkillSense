@@ -5,9 +5,9 @@
 .assessment-progress-page {
   min-height: 100vh;
   width: 100%;
-  background: #f6f8fc;
+  background: #ffffff;
   padding: 32px 24px 50px;
-  color: #172033;
+  color: #17324d;
 }
 
 .assessment-progress-container {
@@ -31,18 +31,19 @@
   font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.5px;
+  color: #17324d;
 }
 
 .progress-header p {
   margin: 7px 0 0;
-  color: #667085;
+  color: #5f7183;
   font-size: 15px;
 }
 
 .refresh-button {
   border: none;
   border-radius: 8px;
-  background: #2563eb;
+  background: #24527a;
   color: #ffffff;
   padding: 11px 18px;
   font-size: 14px;
@@ -52,16 +53,16 @@
 }
 
 .refresh-button:hover {
-  background: #1d4ed8;
+  background: #356f9f;
   transform: translateY(-1px);
 }
 
 /* Error */
 
 .progress-error {
-  background: #fff1f2;
-  border: 1px solid #fecdd3;
-  color: #be123c;
+  background: #fdf1f1;
+  border: 1px solid #edcaca;
+  color: #a94442;
   border-radius: 9px;
   padding: 14px 16px;
   margin-bottom: 20px;
@@ -78,28 +79,30 @@
 }
 
 .progress-filter-row label {
-  color: #344054;
+  color: #334e68;
   font-size: 14px;
   font-weight: 600;
 }
 
 .progress-filter-row select {
   min-width: 150px;
-  border: 1px solid #d0d5dd;
+  border: 1px solid #c9d6e2;
   border-radius: 8px;
   background: #ffffff;
   padding: 9px 34px 9px 12px;
-  color: #344054;
+  color: #334e68;
   font-size: 14px;
   outline: none;
   cursor: pointer;
 }
 
 .progress-filter-row select:focus {
-  border-color: #2563eb;
+  border-color: #356f9f;
 }
 
-/* Summary cards */
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
 
 .progress-summary-grid {
   display: grid;
@@ -109,16 +112,32 @@
 }
 
 .summary-card {
-  background: #ffffff;
-  border: 1px solid #eaecf0;
+  background: #173b5e;
+  border: 1px solid #2e5c82;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.04);
+
+  box-shadow:
+    0 6px 18px rgba(23, 59, 94, 0.14);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #46789f;
+
+  box-shadow:
+    0 10px 24px rgba(23, 59, 94, 0.2);
 }
 
 .summary-label {
   display: block;
-  color: #667085;
+  color: #cbd9e5;
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 8px;
@@ -126,7 +145,7 @@
 
 .summary-card strong {
   display: block;
-  color: #172033;
+  color: #ffffff;
   font-size: 27px;
   line-height: 1.1;
   font-weight: 700;
@@ -135,27 +154,43 @@
 .summary-description {
   display: block;
   margin-top: 7px;
-  color: #98a2b3;
+  color: #9fb5c8;
   font-size: 12px;
 }
 
 .summary-card .positive {
-  color: #16a34a;
+  color: #9bc7a5;
 }
 
 .summary-card .negative {
-  color: #dc2626;
+  color: #f08b8b;
 }
 
-/* Chart */
+/* =========================================================
+   CHART
+========================================================= */
 
 .chart-card,
 .history-card {
-  background: #ffffff;
-  border: 1px solid #eaecf0;
+  background: #173b5e;
+  border: 1px solid #2e5c82;
   border-radius: 12px;
   padding: 25px;
-  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.04);
+
+  box-shadow:
+    0 6px 18px rgba(23, 59, 94, 0.14);
+
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.chart-card:hover,
+.history-card:hover {
+  border-color: #46789f;
+
+  box-shadow:
+    0 10px 26px rgba(23, 59, 94, 0.18);
 }
 
 .chart-card {
@@ -172,20 +207,21 @@
 
 .section-heading h2 {
   margin: 0;
-  color: #172033;
+  color: #ffffff;
   font-size: 20px;
   font-weight: 700;
 }
 
 .section-heading p {
   margin: 6px 0 0;
-  color: #667085;
+  color: #aec2d3;
   font-size: 13px;
 }
 
 .latest-score {
-  background: #eff6ff;
-  color: #1d4ed8;
+  background: #294f70;
+  color: #e4f0f8;
+  border: 1px solid #3e6889;
   border-radius: 8px;
   padding: 9px 13px;
   font-size: 13px;
@@ -198,34 +234,36 @@
 }
 
 .chart-grid line {
-  stroke: #e5e7eb;
+  stroke: #42617a;
 }
 
 /* Tooltip */
 
 .chart-tooltip {
   background: #ffffff;
-  border: 1px solid #e4e7ec;
+  border: 1px solid #d7e1e9;
   border-radius: 8px;
   padding: 12px 14px;
-  box-shadow: 0 5px 18px rgba(16, 24, 40, 0.12);
+  box-shadow: 0 5px 18px rgba(23, 59, 94, 0.2);
   min-width: 170px;
 }
 
 .chart-tooltip p {
   margin: 5px 0;
-  color: #667085;
+  color: #5f7183;
   font-size: 12px;
 }
 
 .chart-tooltip .tooltip-title {
-  color: #172033;
+  color: #17324d;
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
-/* Empty state */
+/* =========================================================
+   EMPTY STATE
+========================================================= */
 
 .empty-state {
   min-height: 300px;
@@ -243,17 +281,19 @@
 
 .empty-state h3 {
   margin: 0;
-  color: #344054;
+  color: #ffffff;
   font-size: 17px;
 }
 
 .empty-state p {
   margin: 7px 0 0;
-  color: #98a2b3;
+  color: #aec2d3;
   font-size: 13px;
 }
 
-/* Table */
+/* =========================================================
+   TABLE
+========================================================= */
 
 .history-card {
   margin-bottom: 20px;
@@ -271,30 +311,30 @@
 }
 
 .history-card th {
-  background: #f9fafb;
-  color: #667085;
+  background: #214f78;
+  color: #d9e6f0;
   font-size: 12px;
   font-weight: 600;
   text-align: left;
   padding: 13px 12px;
-  border-bottom: 1px solid #eaecf0;
+  border-bottom: 1px solid #42617a;
   white-space: nowrap;
 }
 
 .history-card td {
-  color: #475467;
+  color: #d0deea;
   font-size: 13px;
   padding: 14px 12px;
-  border-bottom: 1px solid #f0f2f5;
+  border-bottom: 1px solid #2c5271;
   white-space: nowrap;
 }
 
 .history-card tbody tr:hover {
-  background: #fafcff;
+  background: #214f78;
 }
 
 .assessment-title {
-  color: #172033 !important;
+  color: #ffffff !important;
   font-weight: 600;
 }
 
@@ -302,30 +342,34 @@
   display: inline-block;
   padding: 4px 9px;
   border-radius: 6px;
-  background: #f2f4f7;
-  color: #475467;
+  background: #294f70;
+  color: #dce9f2;
   font-size: 12px;
   font-weight: 600;
+  border: 1px solid #3e6889;
 }
 
 .score-badge {
   display: inline-block;
   padding: 5px 9px;
   border-radius: 6px;
-  background: #ecfdf3;
-  color: #15803d;
+  background: #315e49;
+  color: #d7eddd;
   font-weight: 700;
   font-size: 12px;
+  border: 1px solid #4c8064;
 }
 
 .empty-table {
   text-align: center;
   padding: 55px 20px;
-  color: #98a2b3;
+  color: #9fb5c8;
   font-size: 14px;
 }
 
-/* Loading */
+/* =========================================================
+   LOADING
+========================================================= */
 
 .progress-loading {
   min-height: 75vh;
@@ -333,7 +377,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #667085;
+  color: #5f7183;
 }
 
 .progress-loading p {
@@ -344,8 +388,8 @@
 .loading-spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid #e5e7eb;
-  border-top-color: #2563eb;
+  border: 3px solid #dce5ed;
+  border-top-color: #356f9f;
   border-radius: 50%;
   animation: assessment-spin 0.8s linear infinite;
 }
@@ -356,7 +400,9 @@
   }
 }
 
-/* Responsive */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media (max-width: 900px) {
   .progress-summary-grid {
