@@ -712,18 +712,11 @@ function SkillDetails() {
   const [deletingQuestions, setDeletingQuestions] = useState(false);
   const [deletingSkill, setDeletingSkill] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState("");
-
   const [isAddTopicModalOpen, setIsAddTopicModalOpen] = useState(false);
-<<<<<<< Updated upstream
-  const [selectedTopicForSubTopic, setSelectedTopicForSubTopic] =
-    useState(null);
-
-=======
   const [selectedTopicForSubTopic, setSelectedTopicForSubTopic] = useState(null);
   const [isEditingSkill, setIsEditingSkill] = useState(false);
   const [editingTopic, setEditingTopic] = useState(null);
   const [editingSubTopic, setEditingSubTopic] = useState(null);
->>>>>>> Stashed changes
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -1082,16 +1075,6 @@ function SkillDetails() {
             {skill.description || "No description available."}
           </p>
 
-<<<<<<< Updated upstream
-          <div
-            style={{
-              marginTop: "1rem",
-              display: "flex",
-              gap: "0.75rem",
-              flexWrap: "wrap",
-            }}
-          >
-=======
           <div style={{ marginTop: "1rem", display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
             {isAdmin && (
               <button
@@ -1111,8 +1094,6 @@ function SkillDetails() {
                 ✏️ Edit Skill
               </button>
             )}
-
->>>>>>> Stashed changes
             <button
               type="button"
               className="delete-button"
@@ -1343,33 +1324,6 @@ function SkillDetails() {
                               <strong>{subTopic.name}</strong>
                             </div>
 
-<<<<<<< Updated upstream
-                            <button
-                              type="button"
-                              style={{
-                                backgroundColor:
-                                  "rgba(220, 38, 38, 0.15)",
-                                color: "#f87171",
-                                border:
-                                  "1px solid rgba(239, 68, 68, 0.3)",
-                                borderRadius: "6px",
-                                padding: "3px 8px",
-                                fontSize: "11px",
-                                cursor: "pointer",
-                                fontWeight: "600",
-                              }}
-                              onClick={() =>
-                                handleDeleteSubTopic(
-                                  topic.id,
-                                  subTopic.id,
-                                  subTopic.name
-                                )
-                              }
-                              title="Delete Sub-topic"
-                            >
-                              🗑️ Delete
-                            </button>
-=======
                             <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
                               {isAdmin && (
                                 <button
@@ -1411,7 +1365,6 @@ function SkillDetails() {
                                 🗑️ Delete
                               </button>
                             </div>
->>>>>>> Stashed changes
                           </div>
 
                           {subTopic.description && (

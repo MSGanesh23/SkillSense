@@ -5,13 +5,9 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.db.models.question import Question, QuestionOption
 from app.db.models.subtopic import SubTopic
-<<<<<<< Updated upstream
 from app.db.models.topic import Topic
 from app.db.models.skill import Skill
-from app.db.schemas.question import QuestionCreate, QuestionResponse
-=======
 from app.db.schemas.question import QuestionCreate, QuestionResponse, QuestionUpdate
->>>>>>> Stashed changes
 from app.services.ai_generator import generate_questions_for_subtopic
 
 router = APIRouter(
@@ -282,9 +278,8 @@ def get_questions_by_subtopic(
         )
     )
 
-<<<<<<< Updated upstream
     return result.scalars().all()
-=======
+
 
 @router.put(
     "/{question_id}",
@@ -324,5 +319,3 @@ def update_question(
     except Exception:
         db.rollback()
         raise
-
->>>>>>> Stashed changes
