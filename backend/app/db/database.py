@@ -1,10 +1,21 @@
 from sqlalchemy import create_engine
+from sqlalchemy.engine import URL
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from app.core.config import settings
 
+url = URL.create(
+    drivername = settings.db_driver,
+    username = settings.db_user,
+    password = settings.db_password,
+    host = settings.db_host,
+    port = settings.db_port,
+    database = settings.db_name,
+
+)
+
 engine = create_engine(
-    settings.database_url,
+    url,
     pool_pre_ping = True,
 )
 
