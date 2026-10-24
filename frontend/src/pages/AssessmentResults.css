@@ -25,10 +25,14 @@
     margin-bottom:32px;
 }
 
+.results-header .eyebrow{
+    color:#1F2937;
+}
+
 .results-header h1{
     margin:8px 0 0;
 
-    color:#F8FAFC;
+    color:#064583;
 
     font-size:clamp(2rem,4vw,2.7rem);
     font-weight:800;
@@ -39,7 +43,7 @@
 .results-header>p:last-child{
     margin-top:10px;
 
-    color:#94A3B8;
+    color:#24076c;
 
     font-size:.95rem;
 

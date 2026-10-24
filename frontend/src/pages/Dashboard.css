@@ -1,515 +1,366 @@
 /* =========================================================
    Dashboard.css
-   Premium Navy SaaS Dashboard
-   Same Color Combination as Assessment Progress
-   No JSX Changes Required
+   Clean White Canvas with Premium Navy Cards
+   Matching Your Progress & App Theme
 ========================================================= */
 
-.dashboard{
-    min-height:100vh;
-    width:100%;
-    padding:32px;
-    display:flex;
-    flex-direction:column;
-    gap:30px;
-    box-sizing:border-box;
+.dashboard {
+    min-height: 100vh;
+    width: 100%;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    box-sizing: border-box;
 
+    /* Clean White Background matching Your Progress */
     background:
-        radial-gradient(circle at top right,rgba(23,59,94,.08),transparent 30%),
-        radial-gradient(circle at bottom left,rgba(34,197,94,.05),transparent 35%),
+        radial-gradient(circle at top right, rgba(23, 59, 94, 0.06), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.04), transparent 35%),
         #ffffff;
 }
 
 /* =========================================================
-   HERO
+   HERO / WELCOME SECTION
 ========================================================= */
 
-.welcome-section{
+.welcome-section {
+    position: relative;
+    overflow: hidden;
 
-    position:relative;
-    overflow:hidden;
+    padding: 42px;
+    border-radius: 28px;
 
-    padding:42px;
-    border-radius:28px;
-
-    /* EXACT NAVY FROM ASSESSMENT PROGRESS */
-    background:#173B5E;
-
-    border:1px solid #244E73;
+    background: #173B5E;
+    border: 1px solid #244E73;
 
     box-shadow:
-        0 25px 55px rgba(23,59,94,.18),
-        inset 0 1px 0 rgba(255,255,255,.08);
+        0 25px 55px rgba(23, 59, 94, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-    transition:all .55s cubic-bezier(.16,1,.3,1);
-
+    transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.welcome-section:hover{
-
-    transform:translateY(-6px) scale(1.01);
-
+.welcome-section:hover {
+    transform: translateY(-6px) scale(1.01);
     box-shadow:
-        0 35px 70px rgba(23,59,94,.25),
-        0 0 60px rgba(23,59,94,.12);
-
+        0 35px 70px rgba(23, 59, 94, 0.25),
+        0 0 60px rgba(23, 59, 94, 0.12);
 }
 
-.welcome-section::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:320px;
-    height:320px;
-
-    background:rgba(71,128,174,.12);
-
-    border-radius:50%;
-
-    top:-110px;
-    right:-80px;
-
-    filter:blur(40px);
-
+.welcome-section::before {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background: rgba(71, 128, 174, 0.12);
+    border-radius: 50%;
+    top: -110px;
+    right: -80px;
+    filter: blur(40px);
 }
 
-.welcome-section::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:220px;
-    height:220px;
-
-    background:rgba(34,197,94,.08);
-
-    border-radius:50%;
-
-    bottom:-70px;
-    left:-50px;
-
-    filter:blur(35px);
-
+.welcome-section::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background: rgba(34, 197, 94, 0.08);
+    border-radius: 50%;
+    bottom: -70px;
+    left: -50px;
+    filter: blur(35px);
 }
 
-.welcome-section>*{
-
-    position:relative;
-    z-index:1;
-
+.welcome-section > * {
+    position: relative;
+    z-index: 1;
 }
 
-.eyebrow{
-
-    color:#B8D0E3;
-    font-size:.82rem;
-    font-weight:700;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-
+.eyebrow {
+    color: #B8D0E3;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
 }
 
-.welcome-section h1{
-
-    color:#ffffff;
-
-    margin:14px 0;
-
-    font-size:clamp(2.3rem,5vw,3.6rem);
-
-    font-weight:800;
-
+.welcome-section h1 {
+    color: #ffffff;
+    margin: 14px 0;
+    font-size: clamp(2.3rem, 5vw, 3.6rem);
+    font-weight: 800;
 }
 
-.welcome-section p:last-child{
-
-    color:#D5E3EF;
-    max-width:650px;
-
+.welcome-section p:last-child {
+    color: #D5E3EF;
+    max-width: 650px;
 }
 
 /* =========================================================
-   STATS
+   STATS GRID
 ========================================================= */
 
-.stats-grid{
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 }
 
-.stat-card{
+.stat-card {
+    position: relative;
+    overflow: hidden;
 
-    position:relative;
-    overflow:hidden;
+    padding: 30px;
+    border-radius: 22px;
 
-    padding:30px;
-    border-radius:22px;
+    background: #173B5E;
+    border: 1px solid #244E73;
 
-    /* SAME NAVY COLOR */
-    background:#173B5E;
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 18px 35px rgba(23, 59, 94, 0.16);
+}
 
-    border:1px solid #244E73;
+/* Animated accent bar */
+.stat-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    transform: scaleX(0.2);
+    transform-origin: left;
+    transition: all 0.45s ease;
+}
 
-    transition:all .45s cubic-bezier(.16,1,.3,1);
+.stat-card:nth-child(1)::before {
+    background: #22C55E;
+}
 
+.stat-card:nth-child(2)::before {
+    background: #60A5FA;
+}
+
+.stat-card:nth-child(3)::before {
+    background: #8CC6E8;
+}
+
+.stat-card:hover {
+    transform: translateY(-12px) scale(1.03);
+}
+
+.stat-card:hover::before {
+    transform: scaleX(1);
+}
+
+.stat-card:nth-child(1):hover {
     box-shadow:
-        0 18px 35px rgba(23,59,94,.16);
-
+        0 30px 60px rgba(23, 59, 94, 0.25),
+        0 0 40px rgba(34, 197, 94, 0.22);
 }
 
-/* animated glow bar */
-
-.stat-card::before{
-
-    content:"";
-
-    position:absolute;
-    left:0;
-    top:0;
-
-    width:100%;
-    height:4px;
-
-    transform:scaleX(.2);
-    transform-origin:left;
-
-    transition:all .45s ease;
-
-}
-
-.stat-card:nth-child(1)::before{
-    background:#22C55E;
-}
-
-.stat-card:nth-child(2)::before{
-    background:#60A5FA;
-}
-
-.stat-card:nth-child(3)::before{
-    background:#8CC6E8;
-}
-
-.stat-card:hover{
-
-    transform:
-        translateY(-14px)
-        scale(1.04);
-
-}
-
-.stat-card:hover::before{
-
-    transform:scaleX(1);
-
-}
-
-/* Individual Glow */
-
-.stat-card:nth-child(1):hover{
-
+.stat-card:nth-child(2):hover {
     box-shadow:
-        0 35px 70px rgba(23,59,94,.25),
-        0 0 45px rgba(34,197,94,.22);
-
+        0 30px 60px rgba(23, 59, 94, 0.25),
+        0 0 40px rgba(96, 165, 250, 0.20);
 }
 
-.stat-card:nth-child(2):hover{
-
+.stat-card:nth-child(3):hover {
     box-shadow:
-        0 35px 70px rgba(23,59,94,.25),
-        0 0 45px rgba(96,165,250,.20);
-
+        0 30px 60px rgba(23, 59, 94, 0.25),
+        0 0 40px rgba(140, 198, 232, 0.20);
 }
 
-.stat-card:nth-child(3):hover{
-
-    box-shadow:
-        0 35px 70px rgba(23,59,94,.25),
-        0 0 45px rgba(140,198,232,.20);
-
+.stat-label {
+    color: #B8D0E3;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    font-weight: 700;
 }
 
-.stat-label{
-
-    color:#B8D0E3;
-    text-transform:uppercase;
-    font-size:.82rem;
-    font-weight:700;
-
+.stat-card strong {
+    display: block;
+    margin: 10px 0;
+    color: #ffffff;
+    font-size: 2.8rem;
 }
 
-.stat-card strong{
-
-    display:block;
-
-    margin:10px 0;
-
-    color:#ffffff;
-    font-size:2.8rem;
-
-}
-
-.stat-description{
-
-    color:#B8D0E3;
-
+.stat-description {
+    color: #B8D0E3;
 }
 
 /* =========================================================
    YOUR SKILLS SECTION
 ========================================================= */
 
-.skills-section{
-
-    /* EXACT SAME NAVY */
-    background:#173B5E;
-
-    border-radius:26px;
-
-    padding:30px;
-
-    border:1px solid #244E73;
-
-    box-shadow:
-        0 20px 40px rgba(23,59,94,.18);
-
-    display:flex;
-    flex-direction:column;
-    gap:24px;
-
+.skills-section {
+    background: #173B5E;
+    border-radius: 26px;
+    padding: 30px;
+    border: 1px solid #244E73;
+    box-shadow: 0 20px 40px rgba(23, 59, 94, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
-.section-heading{
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-
-    position:relative;
-
-    padding-bottom:18px;
-
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    padding-bottom: 18px;
 }
 
-.section-heading::after{
-
-    content:"";
-
-    position:absolute;
-    left:0;
-    bottom:0;
-
-    width:85px;
-    height:4px;
-
-    background:#22C55E;
-
-    border-radius:20px;
-
-    box-shadow:0 0 20px rgba(34,197,94,.40);
-
+.section-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 85px;
+    height: 4px;
+    background: #22C55E;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.40);
 }
 
-.section-heading .eyebrow{
-
-    color:#7DE2B0;
-
+.section-heading .eyebrow {
+    color: #7DE2B0;
 }
 
-.section-heading h2{
-
-    color:#ffffff;
-    font-size:2rem;
-
+.section-heading h2 {
+    color: #ffffff;
+    font-size: 2rem;
 }
 
 /* =========================================================
-   BUTTON
+   ADD SKILL BUTTON
 ========================================================= */
 
-.secondary-button{
-
-    position:relative;
-    overflow:hidden;
-
-    border:none;
-    cursor:pointer;
-
-    padding:15px 28px;
-
-    border-radius:16px;
-
-    background:#22C55E;
-
-    color:#ffffff;
-    font-weight:700;
-
-    transition:all .45s cubic-bezier(.16,1,.3,1);
-
-    box-shadow:
-        0 12px 30px rgba(34,197,94,.28);
-
+.secondary-button {
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    padding: 15px 28px;
+    border-radius: 16px;
+    background: #22C55E;
+    color: #ffffff;
+    font-weight: 700;
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 12px 30px rgba(34, 197, 94, 0.28);
 }
 
-.secondary-button::before{
-
-    content:"";
-
-    position:absolute;
-    top:0;
-    left:-120%;
-
-    width:60%;
-    height:100%;
-
-    background:linear-gradient(
+.secondary-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
         90deg,
         transparent,
-        rgba(255,255,255,.35),
+        rgba(255, 255, 255, 0.35),
         transparent
     );
-
-    transition:left .6s ease;
-
+    transition: left 0.6s ease;
 }
 
-.secondary-button:hover{
-
-    transform:
-        translateY(-6px)
-        scale(1.05);
-
-    background:#16A34A;
-
-    box-shadow:
-        0 25px 45px rgba(34,197,94,.40);
-
+.secondary-button:hover {
+    transform: translateY(-5px) scale(1.04);
+    background: #16A34A;
+    box-shadow: 0 22px 45px rgba(34, 197, 94, 0.40);
 }
 
-.secondary-button:hover::before{
-
-    left:150%;
-
+.secondary-button:hover::before {
+    left: 150%;
 }
 
 /* =========================================================
-   SKILLS GRID
+   SKILLS GRID & MESSAGES
 ========================================================= */
 
-.skills-grid{
-
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:24px;
-
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
 }
 
-/* =========================================================
-   MESSAGES
-========================================================= */
-
-.skills-section>p{
-
-    background:#214B70;
-
-    color:#D5E3EF;
-
-    padding:20px;
-
-    border-radius:18px;
-
+.skills-section > p {
+    background: #214B70;
+    color: #D5E3EF;
+    padding: 20px;
+    border-radius: 18px;
 }
 
-/* =========================================================
-   ENTRANCE ANIMATION
-========================================================= */
-
+/* Entrance Animation */
 .welcome-section,
 .stat-card,
-.skills-section{
-
-    animation:fadeUp .7s ease both;
-
+.skills-section {
+    animation: fadeUp 0.7s ease both;
 }
 
-.stat-card:nth-child(2){
-    animation-delay:.08s;
+.stat-card:nth-child(2) {
+    animation-delay: 0.08s;
 }
 
-.stat-card:nth-child(3){
-    animation-delay:.16s;
+.stat-card:nth-child(3) {
+    animation-delay: 0.16s;
 }
 
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-        transform:translateY(25px);
-
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
     }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0);
-
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-
 }
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE DESIGN
 ========================================================= */
 
-@media(max-width:992px){
-
-    .stats-grid{
-        grid-template-columns:repeat(2,1fr);
+@media (max-width: 992px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
-@media(max-width:768px){
-
-    .dashboard{
-        padding:22px;
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 22px;
     }
 
-    .welcome-section{
-        padding:28px;
+    .welcome-section {
+        padding: 28px;
     }
 
-    .stats-grid{
-        grid-template-columns:1fr;
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
 
-    .section-heading{
-        flex-direction:column;
-        align-items:flex-start;
+    .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .secondary-button{
-        width:100%;
+    .secondary-button {
+        width: 100%;
     }
-
 }
 
-@media(max-width:480px){
-
-    .dashboard{
-        padding:16px;
+@media (max-width: 480px) {
+    .dashboard {
+        padding: 16px;
     }
 
-    .welcome-section h1{
-        font-size:1.9rem;
+    .welcome-section h1 {
+        font-size: 1.9rem;
     }
-
 }

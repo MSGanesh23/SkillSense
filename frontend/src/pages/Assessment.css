@@ -28,9 +28,13 @@
     margin-bottom: 30px;
 }
 
+.assessment-top .eyebrow{
+    color:#141f2d;
+}
+
 .assessment-top h1 {
     margin: 8px 0 0;
-    color: #F8FAFC;
+    color: #1c0c49;
     font-size: clamp(2rem, 4vw, 2.6rem);
     font-weight: 800;
     letter-spacing: -0.6px;
