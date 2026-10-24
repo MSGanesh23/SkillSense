@@ -367,7 +367,7 @@ function Home() {
             you back, and shows you exactly what to learn next.
           </p>
 
-          <Link to="/dashboard" className="home-primary-button">
+          <Link to="/login" className="home-primary-button">
             Let's Get Started
             <span>→</span>
           </Link>

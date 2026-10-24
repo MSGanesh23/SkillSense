@@ -60,7 +60,7 @@ function Navbar() {
         ) : (
           !isLoginPage && (
             <Link to="/login" className="navbar-login-btn">
-              Sign In →
+              Sign In
             </Link>
           )
         )}
