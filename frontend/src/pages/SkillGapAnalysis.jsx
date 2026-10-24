@@ -109,10 +109,15 @@ function SkillGapAnalysis() {
     }
   }
 
-  if (loading) {
+    if (loading) {
     return (
       <main className="dashboard">
-        <p>Analyzing your assessment...</p>
+        <div className="gap-loading-row">
+          <button type="button" className="loading-button" disabled>
+            <span className="loading-spinner" />
+            <span>Analyzing your assessment...</span>
+          </button>
+        </div>
       </main>
     );
   }

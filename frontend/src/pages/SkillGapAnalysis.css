@@ -523,3 +523,53 @@
     }
 
 }
+
+/* ---------- Loading Row & Button ---------- */
+
+.gap-loading-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 0;
+}
+
+.gap-loading-row p {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #17324D;
+}
+
+.gap-loading-row .loading-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 18px;
+    min-height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    background: linear-gradient(135deg, #111827 0%, #16213e 60%, #0f3460 100%);
+    color: #FFFFFF;
+    font-size: 0.82rem;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+    cursor: not-allowed;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.gap-loading-row .loading-spinner {
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-top-color: #00E5FF;
+    border-radius: 50%;
+    animation: gap-spin 0.8s linear infinite;
+}
+
+@keyframes gap-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+

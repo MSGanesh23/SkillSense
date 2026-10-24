@@ -27,68 +27,57 @@
     padding:10px 18px;
     border-radius:12px;
     text-decoration:none;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    color:#E2E8F0;
+    background:#FFFFFF !important;
+    border:1px solid #D7E1E9 !important;
+    color:#356F9F !important;
     font-weight:600;
     transition:.3s ease;
 }
 
 .back-link:hover{
     transform:translateY(-2px);
-    background:rgba(255,255,255,.08);
-    border-color:rgba(0,229,255,.20);
-    color:#FFFFFF;
+    background:#F7FAFC !important;
+    border-color:#356F9F !important;
+    color:#17324D !important;
 }
 
 
-/* ================= HERO ================= */
+/* =========================================================
+   BOX 1: HERO CARD (Matches 3rd Box: .assessment-cta)
+========================================================= */
 
 .skill-hero{
     position:relative;
     overflow:hidden;
     display:flex;
     align-items:center;
-    gap:24px;
-    padding:36px;
-    border-radius:28px;
-    background:linear-gradient(135deg,#111827,#16213e 60%,#0f3460);
-    border:1px solid rgba(255,255,255,.06);
+    gap:26px;
+    padding:34px;
+    border-radius:24px;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(0, 229, 255, 0.035), transparent 40%),
+        linear-gradient(135deg, #111827, #16213e 60%, #0f3460);
+    border:1px solid rgba(255,255,255,.07);
     box-shadow:
-        0 22px 50px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.05);
-    transition:.45s ease;
+        0 20px 45px -10px rgba(0,0,0,.5),
+        0 0 0 1px rgba(255,255,255,.03),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    color:#FFFFFF;
+    transition:.35s ease;
 }
 
 .skill-hero:hover{
     transform:translateY(-6px);
     box-shadow:
-        0 30px 60px rgba(0,0,0,.45),
-        0 0 40px rgba(0,229,255,.12);
+        0 30px 60px -12px rgba(0,0,0,.65),
+        0 0 25px rgba(0,229,255,.04),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.14);
 }
 
-.skill-hero::before{
-    content:"";
-    position:absolute;
-    top:-90px;
-    right:-70px;
-    width:220px;
-    height:220px;
-    border-radius:50%;
-    background:rgba(0,229,255,.10);
-    filter:blur(45px);
-}
-
+.skill-hero::before,
 .skill-hero::after{
-    content:"";
-    position:absolute;
-    bottom:-80px;
-    left:-50px;
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    background:rgba(34,197,94,.08);
-    filter:blur(40px);
+    display:none;
 }
 
 .skill-hero>*{
@@ -97,41 +86,45 @@
 }
 
 .skill-hero-icon{
-    width:82px;
-    height:82px;
+    width:76px;
+    height:76px;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:22px;
+    border-radius:18px;
     background:linear-gradient(135deg,#22C55E,#00E5FF);
     color:white;
-    font-size:2rem;
+    font-size:1.85rem;
     font-weight:800;
     box-shadow:0 12px 28px rgba(0,229,255,.20);
+    flex-shrink:0;
 }
 
 .skill-hero h1{
-    margin:10px 0;
+    margin:0 0 8px 0;
     color:#FFFFFF;
-    font-size:clamp(2rem,4vw,2.8rem);
+    font-size:clamp(1.8rem,3.5vw,2.4rem);
     font-weight:800;
+    line-height:1.25;
 }
 
 .skill-hero .eyebrow{
-    color:#8EA2C9;
+    color:#98A2B3;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin:0 0 6px 0;
 }
 
-
-/* FIXED: Description under Basics of JAVA */
-
 .skill-hero h1 + p{
-    margin:8px 0 0;
-    color:#E2E8F0 !important;
-    font-size:1rem;
+    margin:0;
+    color:#CBD5E1 !important;
+    font-size:0.95rem;
     font-weight:500;
     line-height:1.7;
     opacity:1 !important;
-    text-shadow:0 2px 6px rgba(0,0,0,.45);
+    text-shadow:none !important;
 }
 
 
@@ -141,7 +134,6 @@
    First button  = Delete Skill
    Second button = Delete All Questions
 ========================================================= */
-
 
 /* ================= DELETE SKILL ================= */
 
@@ -189,9 +181,6 @@
         background .25s ease;
 }
 
-
-/* Delete Skill visible label */
-
 .skill-hero > div > div .delete-button:first-of-type::after{
     content:"✦  Delete Skill";
 
@@ -216,9 +205,6 @@
         transform .25s ease,
         letter-spacing .25s ease;
 }
-
-
-/* Delete Skill glass sweep */
 
 .skill-hero > div > div .delete-button:first-of-type::before{
     content:"";
@@ -250,7 +236,6 @@
     z-index:2;
 }
 
-
 .skill-hero > div > div .delete-button:first-of-type:hover:not(:disabled){
     transform:translateY(-3px);
 
@@ -270,17 +255,14 @@
         inset 0 1px 0 rgba(255,255,255,.22);
 }
 
-
 .skill-hero > div > div .delete-button:first-of-type:hover:not(:disabled)::before{
     left:145%;
 }
-
 
 .skill-hero > div > div .delete-button:first-of-type:hover:not(:disabled)::after{
     transform:translateX(1px);
     letter-spacing:.025em;
 }
-
 
 .skill-hero > div > div .delete-button:first-of-type:active:not(:disabled){
     transform:translateY(-1px) scale(.98);
@@ -289,9 +271,6 @@
         0 6px 13px rgba(185,28,28,.24),
         inset 0 2px 5px rgba(0,0,0,.18);
 }
-
-
-/* Delete Skill loading state */
 
 .skill-hero > div > div .delete-button:first-of-type:disabled::after{
     content:"◌  Deleting Skill...";
@@ -345,9 +324,6 @@
         background .25s ease;
 }
 
-
-/* Delete All Questions visible label */
-
 .skill-hero > div > div .delete-button:nth-of-type(2)::after{
     content:"◆  Delete All Questions";
 
@@ -373,10 +349,7 @@
         letter-spacing .25s ease;
 }
 
-
-/* Delete All Questions glass sweep */
-
-.skill-hero > div > div .delete-button:nth-of-type(2)::before{
+.skill-hero > div > div .delete-button:nth-of-type(2):before{
     content:"";
 
     position:absolute;
@@ -406,7 +379,6 @@
     z-index:2;
 }
 
-
 .skill-hero > div > div .delete-button:nth-of-type(2):hover:not(:disabled){
     transform:translateY(-3px);
 
@@ -426,17 +398,14 @@
         inset 0 1px 0 rgba(255,255,255,.22);
 }
 
-
 .skill-hero > div > div .delete-button:nth-of-type(2):hover:not(:disabled)::before{
     left:145%;
 }
-
 
 .skill-hero > div > div .delete-button:nth-of-type(2):hover:not(:disabled)::after{
     transform:translateX(1px);
     letter-spacing:.025em;
 }
-
 
 .skill-hero > div > div .delete-button:nth-of-type(2):active:not(:disabled){
     transform:translateY(-1px) scale(.98);
@@ -446,15 +415,13 @@
         inset 0 2px 5px rgba(0,0,0,.18);
 }
 
-
-/* Delete All Questions loading state */
-
 .skill-hero > div > div .delete-button:nth-of-type(2):disabled::after{
     content:"◌  Deleting...";
     opacity:.85;
 }
 
-/* ================= DELETE SKILL BUTTON ================= */
+
+/* ================= DELETE SKILL BUTTON (FALLBACK) ================= */
 
 .skill-hero .delete-button{
     position:relative;
@@ -603,24 +570,38 @@
 }
 
 
-
-
 /* ================= LEARNING OVERVIEW ================= */
 
 .learning-overview{
     display:flex;
     flex-direction:column;
-    gap:26px;
+    gap:20px;
 }
 
-.learning-overview h2{
-    color:white;
+.learning-overview .eyebrow{
+    color:#16A36A !important;
+    font-size:0.8rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+}
+
+.learning-overview h2,
+.learning-overview .section-heading h2,
+.learning-overview > h2{
+    color:#17324D !important;
     font-size:1.9rem;
+    font-weight:800;
+    margin:0 0 6px 0;
 }
 
-.section-description{
-    color:#94A3B8;
+.section-description,
+.learning-overview > p,
+.learning-overview .section-description{
+    color:#5F7183 !important;
     line-height:1.7;
+    margin:0;
 }
 
 
@@ -701,123 +682,73 @@
 
 /* =========================================================
    TOPICS & SUB-TOPICS
-   UPDATED SECTION ONLY
 ========================================================= */
-
 
 /* ================= TOPICS LIST ================= */
 
 .topics-list{
     display:flex;
     flex-direction:column;
-    gap:22px;
+    gap:26px;
+    margin-top:20px;
 }
 
 
-/* ================= TOPIC CARD ================= */
+/* =========================================================
+   BOX 2: TOPIC CARD (Matches 3rd Box: .assessment-cta)
+   Top-Notch Obsidian Glass SaaS Box
+========================================================= */
 
 .topic-card{
     position:relative;
     overflow:hidden;
 
     display:flex;
-    gap:22px;
+    gap:26px;
 
     width:100%;
     box-sizing:border-box;
 
-    padding:26px 26px 20px;
+    padding:34px !important;
 
-    border-radius:24px;
+    border-radius:24px !important;
 
     background:
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(0,229,255,.055),
-            transparent 25%
-        ),
-        linear-gradient(
-            145deg,
-            #182235 0%,
-            #121C2D 55%,
-            #101827 100%
-        );
+        radial-gradient(circle at 10% 0%, rgba(0, 229, 255, 0.035), transparent 40%),
+        radial-gradient(circle at 95% 100%, rgba(34, 197, 94, 0.03), transparent 40%),
+        linear-gradient(145deg, #0d1527 0%, #111d33 45%, #0c1424 100%) !important;
 
-    border:1px solid rgba(255,255,255,.065);
+    border:1px solid rgba(255,255,255,.07) !important;
 
     box-shadow:
-        0 18px 38px rgba(0,0,0,.30),
-        inset 0 1px 0 rgba(255,255,255,.035);
+        0 20px 45px -10px rgba(0,0,0,.5),
+        0 0 0 1px rgba(255,255,255,.03),
+        inset 0 1px 0 rgba(255,255,255,.08) !important;
+
+    color:#FFFFFF;
 
     transition:
         transform .35s cubic-bezier(.16,1,.3,1),
-        border-color .35s ease,
-        box-shadow .35s ease;
+        box-shadow .35s ease,
+        border-color .35s ease !important;
 }
 
-
-/* premium top accent */
-
-.topic-card::before{
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #22C55E 0%,
-            #00D4AA 28%,
-            #00E5FF 65%,
-            #3B82F6 100%
-        );
-
-    opacity:.95;
-}
-
-
-/* subtle inner highlight */
-
+.topic-card::before,
 .topic-card::after{
-    content:"";
-
-    position:absolute;
-
-    top:3px;
-    right:0;
-
-    width:35%;
-    height:180px;
-
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(0,229,255,.045),
-            transparent 70%
-        );
-
-    pointer-events:none;
+    display:none !important;
 }
 
 .topic-card:hover{
-    transform:translateY(-5px);
-
-    border-color:rgba(0,229,255,.14);
-
+    transform:translateY(-6px) !important;
+    border-color:rgba(255,255,255,.14) !important;
     box-shadow:
-        0 25px 48px rgba(0,0,0,.36),
-        0 0 25px rgba(0,229,255,.055),
-        inset 0 1px 0 rgba(255,255,255,.045);
+        0 30px 60px -12px rgba(0,0,0,.65),
+        0 0 25px rgba(0,229,255,.04),
+        inset 0 1px 0 rgba(255,255,255,.12) !important;
 }
 
 
-/* ================= TOPIC NUMBER ================= */
+/* ================= TOPIC NUMBER BADGE ================= */
 
 .topic-number{
     width:50px;
@@ -829,27 +760,27 @@
     align-items:center;
     justify-content:center;
 
-    margin-top:1px;
+    margin-top:2px;
 
     border-radius:15px;
 
     background:
         linear-gradient(
-            145deg,
-            #22C55E 0%,
-            #00D4AA 45%,
-            #00C8FF 100%
+            135deg,
+            #10B981 0%,
+            #00D4AA 50%,
+            #00E5FF 100%
         );
 
     color:#FFFFFF;
 
-    font-size:.84rem;
+    font-size:.88rem;
 
     font-weight:850;
 
     box-shadow:
-        0 10px 22px rgba(0,200,255,.16),
-        inset 0 1px 0 rgba(255,255,255,.25);
+        0 10px 22px rgba(0,229,255,.22),
+        inset 0 1px 1px rgba(255,255,255,.35);
 
     position:relative;
 
@@ -865,7 +796,7 @@
 
     border-radius:14px;
 
-    border:1px solid rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
 
     pointer-events:none;
 }
@@ -884,23 +815,6 @@
     z-index:2;
 }
 
-.topic-content h3{
-    margin:0;
-
-    color:#F8FAFC;
-
-    font-size:1.35rem;
-
-    font-weight:850;
-
-    letter-spacing:-.35px;
-
-    line-height:1.3;
-}
-
-
-/* ================= TOPIC HEADER ================= */
-
 .topic-header-row{
     width:100%;
     box-sizing:border-box;
@@ -912,6 +826,24 @@
     align-items:center;
 
     gap:18px;
+}
+
+.topic-content h3{
+    margin:0;
+
+    color:#FFFFFF !important;
+
+    font-size:1.55rem;
+
+    font-weight:850;
+
+    letter-spacing:-.02em;
+
+    line-height:1.25;
+}
+
+.topics-section-header {
+    margin-bottom: 35px;
 }
 
 
@@ -971,13 +903,13 @@
 /* ================= TOPIC DESCRIPTION ================= */
 
 .topic-description{
-    color:#AEBED1;
+    color:#94A3B8 !important;
 
-    line-height:1.7;
+    line-height:1.65;
 
-    font-size:.88rem;
+    font-size:.93rem;
 
-    margin:11px 0 19px;
+    margin:10px 0 26px;
 
     max-width:850px;
 }
@@ -1002,7 +934,9 @@
 }
 
 
-/* ================= SUBTOPIC CARD ================= */
+/* =========================================================
+   SUB-TOPIC CARD (Elevated Frosted Glass Interior Box)
+========================================================= */
 
 .subtopic-card{
     position:relative;
@@ -1010,97 +944,81 @@
 
     min-width:0;
 
-    padding:17px;
+    padding:24px !important;
 
-    border-radius:17px;
+    border-radius:18px !important;
 
     background:
         linear-gradient(
             145deg,
-            rgba(31,44,65,.94),
-            rgba(19,29,46,.96)
-        );
+            rgba(20, 31, 50, 0.7) 0%,
+            rgba(13, 21, 36, 0.8) 100%
+        ) !important;
 
-    border:1px solid rgba(255,255,255,.07);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,.08) !important;
 
     box-shadow:
-        0 10px 24px rgba(0,0,0,.22),
-        inset 0 1px 0 rgba(255,255,255,.025);
+        0 12px 28px rgba(0,0,0,.32),
+        inset 0 1px 0 rgba(255,255,255,.05) !important;
 
     transition:
-        transform .3s ease,
+        transform .3s cubic-bezier(.16,1,.3,1),
         background .3s ease,
         border-color .3s ease,
-        box-shadow .3s ease;
+        box-shadow .3s ease !important;
 }
 
-
-/* subtopic accent */
-
 .subtopic-card::before{
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #22C55E,
-            #00E5FF,
-            transparent
-        );
-
-    opacity:.65;
-
-    transition:opacity .3s ease;
+    display:none !important;
 }
 
 .subtopic-card:hover{
-    transform:translateY(-4px);
+    transform:translateY(-3px) !important;
 
     background:
         linear-gradient(
             145deg,
-            rgba(36,51,75,.97),
-            rgba(19,30,48,.98)
-        );
+            rgba(24, 38, 62, 0.8) 0%,
+            rgba(16, 26, 44, 0.9) 100%
+        ) !important;
 
-    border-color:rgba(0,229,255,.14);
+    border-color:rgba(0,229,255,.2) !important;
 
     box-shadow:
-        0 16px 31px rgba(0,0,0,.29),
-        0 0 19px rgba(0,229,255,.045);
-}
-
-.subtopic-card:hover::before{
-    opacity:1;
+        0 18px 36px rgba(0,0,0,.42),
+        0 0 20px rgba(0,229,255,.05),
+        inset 0 1px 0 rgba(255,255,255,.1) !important;
 }
 
 
-/* ================= SUBTOPIC TITLE ================= */
+/* ================= SUBTOPIC TITLE ROW ================= */
 
 .subtopic-item{
     display:flex;
 
     align-items:center;
+    justify-content:space-between;
 
-    gap:10px;
+    gap:12px;
 
     min-width:0;
+
+    padding-bottom:14px;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .subtopic-item strong{
-    color:#F1F5F9;
+    color:#F8FAFC !important;
 
-    font-size:.9rem;
+    font-size:1.02rem;
 
     font-weight:750;
+
+    letter-spacing:-.01em;
 
     line-height:1.4;
 }
@@ -1109,8 +1027,8 @@
 /* ================= SUBTOPIC DOT ================= */
 
 .subtopic-dot{
-    width:25px;
-    height:25px;
+    width:24px;
+    height:24px;
 
     flex-shrink:0;
 
@@ -1124,30 +1042,30 @@
     background:
         linear-gradient(
             135deg,
-            #22C55E,
-            #00D4AA
+            #10B981,
+            #059669
         );
 
     color:#FFFFFF;
 
-    font-size:.68rem;
+    font-size:.7rem;
 
     font-weight:800;
 
     box-shadow:
-        0 5px 13px rgba(34,197,94,.15),
-        inset 0 1px 0 rgba(255,255,255,.22);
+        0 0 12px rgba(16,185,129,.35),
+        inset 0 1px 1px rgba(255,255,255,.3);
 }
 
 
 /* ================= SUBTOPIC DESCRIPTION ================= */
 
 .subtopic-description{
-    color:#A8B8CC;
+    color:#CBD5E1 !important;
 
-    margin:11px 0;
+    margin:12px 0 6px;
 
-    font-size:.82rem;
+    font-size:.86rem;
 
     line-height:1.65;
 }
@@ -1156,34 +1074,31 @@
 /* ================= LEARNING MATERIALS ================= */
 
 .learning-materials{
-    margin-top:17px;
+    margin-top:16px;
 
-    padding-top:15px;
-
-    border-top:1px solid rgba(255,255,255,.055);
+    padding-top:14px;
 }
 
 .learning-materials h4{
-    margin:0 0 10px;
+    margin:0 0 8px;
 
-    color:#F1F5F9;
+    color:#94A3B8 !important;
 
-    font-size:.81rem;
+    font-size:.74rem;
 
-    font-weight:800;
+    font-weight:750;
 
-    letter-spacing:.01em;
+    letter-spacing:.06em;
+
+    text-transform:uppercase;
 }
 
-
-/* fixed text visibility */
-
 .learning-materials p{
-    color:#C5D3E6;
+    color:#64748B !important;
 
-    font-size:.81rem;
+    font-size:.82rem;
 
-    line-height:1.7;
+    line-height:1.6;
 
     margin:0;
 }
@@ -1192,42 +1107,44 @@
 /* ================= LEARNING MATERIAL ITEM ================= */
 
 .learning-material-item{
-    padding:12px;
+    padding:13px 15px;
 
     margin-bottom:9px;
 
     border-radius:12px;
 
-    background:
-        rgba(255,255,255,.028);
+    background:rgba(255,255,255,.035) !important;
 
-    border:1px solid rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.06) !important;
 
     transition:
         background .25s ease,
-        border-color .25s ease;
+        border-color .25s ease,
+        transform .25s ease;
 }
 
 .learning-material-item:hover{
-    background:rgba(255,255,255,.045);
+    background:rgba(255,255,255,.06) !important;
 
-    border-color:rgba(0,229,255,.09);
+    border-color:rgba(0,229,255,.15) !important;
+
+    transform:translateX(3px);
 }
 
 .learning-material-item strong{
-    color:#F8FAFC;
+    color:#F8FAFC !important;
 
-    font-size:.8rem;
+    font-size:.82rem;
 }
 
 .learning-material-item small{
-    color:#94A3B8;
+    color:#94A3B8 !important;
 
     display:block;
 
     margin-top:6px;
 
-    font-size:.7rem;
+    font-size:.72rem;
 }
 
 .learning-material-item a{
@@ -1235,7 +1152,7 @@
 
     text-decoration:none;
 
-    font-size:.76rem;
+    font-size:.78rem;
 
     font-weight:700;
 
@@ -1257,10 +1174,14 @@
 }
 
 
-/* ================= AI SECTION ================= */
+/* ================= AI CONTROLS SECTION ================= */
 
 .ai-question-section{
-    margin-top:15px;
+    margin-top:18px;
+
+    padding-top:16px;
+
+    border-top:1px solid rgba(255,255,255,.06);
 
     display:flex;
 
@@ -1275,11 +1196,159 @@
     gap:12px;
 }
 
+/* Control Pills (Slider & Dropdown wrappers) */
+.subtopic-card .ai-question-section > div,
+.subtopic-card label:has(input[type="range"]),
+.subtopic-card label:has(select){
+    min-height:42px !important;
+    height:42px !important;
+
+    padding:6px 14px !important;
+    border-radius:12px !important;
+
+    background:linear-gradient(145deg, #131d2e, #0c1422) !important;
+
+    border:1px solid rgba(255,255,255,.09) !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(0,0,0,.4),
+        0 4px 10px rgba(0,0,0,.15) !important;
+
+    display:flex;
+    align-items:center;
+    box-sizing:border-box;
+
+    transition:border-color .25s ease, box-shadow .25s ease;
+}
+
+.subtopic-card .ai-question-section > div:hover,
+.subtopic-card label:has(input[type="range"]):hover,
+.subtopic-card label:has(select):hover{
+    border-color:rgba(0,229,255,.25) !important;
+
+    box-shadow:
+        inset 0 1px 2px rgba(0,0,0,.4),
+        0 6px 14px rgba(0,0,0,.25),
+        0 0 12px rgba(0,229,255,.06) !important;
+}
+
+.subtopic-card label:has(input[type="range"]) span,
+.subtopic-card .ai-question-section span{
+    color:#00E5FF !important;
+    font-weight:750 !important;
+}
+
+/* Range Input */
+.subtopic-card input[type="range"]{
+    width:76px !important;
+    height:6px !important;
+
+    accent-color:#22C55E !important;
+
+    background:#070d17 !important;
+    border-radius:999px !important;
+
+    cursor:pointer !important;
+}
+
+.subtopic-card input[type="range"]::-webkit-slider-runnable-track{
+    height:6px !important;
+    border-radius:999px !important;
+    background:#070d17 !important;
+}
+
+.subtopic-card input[type="range"]::-moz-range-track{
+    height:6px !important;
+    border-radius:999px !important;
+    background:#070d17 !important;
+}
+
+.subtopic-card input[type="range"]::-moz-range-progress{
+    height:6px !important;
+    border-radius:999px !important;
+    background:#22C55E !important;
+}
+
+.subtopic-card input[type="range"]::-webkit-slider-thumb{
+    width:15px !important;
+    height:15px !important;
+
+    margin-top:-4.5px !important;
+
+    appearance:none !important;
+    -webkit-appearance:none !important;
+
+    border:2px solid #EFFFF4 !important;
+    border-radius:50% !important;
+
+    background:#22C55E !important;
+
+    box-shadow:
+        0 0 0 3px rgba(34,197,94,.2),
+        0 3px 9px rgba(0,0,0,.4) !important;
+}
+
+.subtopic-card input[type="range"]::-moz-range-thumb{
+    width:13px !important;
+    height:13px !important;
+
+    border:2px solid #EFFFF4 !important;
+    border-radius:50% !important;
+
+    background:#22C55E !important;
+
+    box-shadow:
+        0 0 0 3px rgba(34,197,94,.2),
+        0 3px 9px rgba(0,0,0,.4) !important;
+}
+
+/* Select Dropdown */
+.subtopic-card select,
+.subtopic-card label:has(select) select{
+    min-width:90px !important;
+    height:30px !important;
+
+    padding:4px 28px 4px 10px !important;
+    border-radius:8px !important;
+
+    appearance:none !important;
+    -webkit-appearance:none !important;
+
+    background:linear-gradient(135deg, #17243a 0%, #1c2b45 100%) !important;
+
+    border:1px solid rgba(255,255,255,.12) !important;
+
+    color:#FFFFFF !important;
+
+    font-size:.76rem !important;
+    font-weight:750 !important;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.2) !important;
+    cursor:pointer;
+}
+
+.subtopic-card select:focus,
+.subtopic-card label:has(select) select:focus{
+    outline:none !important;
+    border-color:#00E5FF !important;
+    box-shadow:0 0 0 3px rgba(0,229,255,.15) !important;
+}
+
+.subtopic-card select option,
+.subtopic-card label:has(select) select option{
+    background:#101a2b !important;
+    color:#F8FAFC !important;
+    font-weight:700 !important;
+}
+
+.subtopic-card select option:checked,
+.subtopic-card label:has(select) select option:checked{
+    background:#0284C7 !important;
+    color:#FFFFFF !important;
+}
+
 
 /* ================= GENERATE AI BUTTON ================= */
-
-/* ================= GENERATE AI BUTTON ================= */
-/* Unique AI Glass / Neon Button */
 
 .topic-button{
     position:relative;
@@ -1297,10 +1366,6 @@
 
     border:1px solid rgba(129,140,248,.30);
 
-    /*
-       Deep indigo + violet gives stronger contrast
-       against the dark subtopic card.
-    */
     background:
         linear-gradient(
             135deg,
@@ -1330,13 +1395,6 @@
         border-color .28s ease,
         background .28s ease;
 }
-
-
-/* =========================================================
-   AI SYMBOL + LABEL
-   Recreates the visible button content using CSS only.
-   Existing JSX text/functionality remains untouched.
-========================================================= */
 
 .topic-button::after{
     content:"✦  Generate AI Questions";
@@ -1368,11 +1426,6 @@
         letter-spacing .28s ease;
 }
 
-
-/* =========================================================
-   MOVING GLASS REFLECTION
-========================================================= */
-
 .topic-button::before{
     content:"";
 
@@ -1403,13 +1456,7 @@
     z-index:2;
 }
 
-
-/* =========================================================
-   HOVER
-========================================================= */
-
 .topic-button:hover:not(:disabled){
-
     transform:
         translateY(-3px)
         scale(1.025);
@@ -1440,13 +1487,7 @@
     letter-spacing:.025em;
 }
 
-
-/* =========================================================
-   ACTIVE
-========================================================= */
-
 .topic-button:active:not(:disabled){
-
     transform:
         translateY(-1px)
         scale(.99);
@@ -1456,13 +1497,7 @@
         inset 0 2px 5px rgba(0,0,0,.18);
 }
 
-
-/* =========================================================
-   DISABLED
-========================================================= */
-
 .topic-button:disabled{
-
     opacity:.5;
 
     cursor:not-allowed;
@@ -1512,15 +1547,39 @@
 
     gap:15px;
 
-    margin-top:19px;
+    margin-top:24px;
 
-    padding-top:15px;
+    padding-top:18px;
 
-    border-top:1px solid rgba(255,255,255,.055);
+    border-top:1px solid rgba(255,255,255,.06) !important;
+}
 
+.topic-footer span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:5px 12px;
+    border-radius:8px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.05);
     color:#94A3B8;
+    font-size:.76rem;
+    font-weight:650;
+    letter-spacing:.02em;
+}
 
-    font-size:.75rem;
+.topic-footer span::before{
+    content:"";
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#22C55E;
+    box-shadow:0 0 8px rgba(34,197,94,.5);
+}
+
+.topic-footer span:last-child::before{
+    background:#00E5FF;
+    box-shadow:0 0 8px rgba(0,229,255,.5);
 }
 
 
@@ -1543,7 +1602,9 @@
 }
 
 
-/* ================= CTA ================= */
+/* =========================================================
+   BOX 3: CTA (The Reference Design)
+========================================================= */
 
 .assessment-cta{
     position:relative;
@@ -1554,25 +1615,49 @@
     gap:30px;
     padding:34px;
     border-radius:24px;
-    background:linear-gradient(135deg,#111827,#16213e 60%,#0f3460);
-    border:1px solid rgba(255,255,255,.06);
-    box-shadow:0 20px 45px rgba(0,0,0,.35);
+    background:
+        radial-gradient(circle at 10% 0%, rgba(0, 229, 255, 0.035), transparent 40%),
+        linear-gradient(135deg, #111827, #16213e 60%, #0f3460);
+    border:1px solid rgba(255,255,255,.07);
+    box-shadow:
+        0 20px 45px -10px rgba(0,0,0,.5),
+        0 0 0 1px rgba(255,255,255,.03),
+        inset 0 1px 0 rgba(255,255,255,.08);
     color:white;
     transition:.35s ease;
 }
 
 .assessment-cta:hover{
     transform:translateY(-6px);
+    box-shadow:
+        0 30px 60px -12px rgba(0,0,0,.65),
+        0 0 25px rgba(0,229,255,.04),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.14);
 }
 
 .assessment-cta .eyebrow{
     color:#98A2B3;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin:0 0 6px 0;
+}
+
+.assessment-cta h2{
+    color:#FFFFFF;
+    font-size:1.6rem;
+    font-weight:800;
+    margin:0 0 10px 0;
 }
 
 .assessment-cta p:last-child{
     color:#CBD5E1;
     line-height:1.7;
+    margin:0;
 }
+
 
 /* =========================================================
    START ASSESSMENT
@@ -1625,11 +1710,8 @@
         background .28s ease;
 }
 
-
-/* Visible Start Assessment label */
-
 .assessment-button::after{
-    content:"➜  Start Assessment";
+    content:"✦  Start Assessment";
 
     position:relative;
     z-index:3;
@@ -1653,9 +1735,6 @@
         transform .28s ease,
         letter-spacing .28s ease;
 }
-
-
-/* Premium diagonal shine */
 
 .assessment-button::before{
     content:"";
@@ -1687,9 +1766,6 @@
     z-index:2;
 }
 
-
-/* Hover */
-
 .assessment-button:hover{
     transform:
         translateY(-4px)
@@ -1714,11 +1790,9 @@
         inset 0 1px 0 rgba(255,255,255,.27);
 }
 
-
 .assessment-button:hover::before{
     left:145%;
 }
-
 
 .assessment-button:hover::after{
     transform:
@@ -1727,9 +1801,6 @@
 
     letter-spacing:.035em;
 }
-
-
-/* Click */
 
 .assessment-button:active{
     transform:
@@ -1767,7 +1838,6 @@
 /* ================= RESPONSIVE ================= */
 
 @media(max-width:992px){
-
     .learning-grid{
         grid-template-columns:repeat(2,1fr);
     }
@@ -1775,15 +1845,13 @@
     .subtopic-list{
         grid-template-columns:1fr;
     }
-
 }
 
 @media(max-width:768px){
-
     .skill-hero{
         flex-direction:column;
         align-items:flex-start;
-        padding:28px;
+        padding:26px;
     }
 
     .learning-grid{
@@ -1792,7 +1860,7 @@
 
     .topic-card{
         flex-direction:column;
-        padding:22px;
+        padding:26px !important;
     }
 
     .topic-header-row{
@@ -1802,27 +1870,26 @@
     .assessment-cta{
         flex-direction:column;
         align-items:flex-start;
+        padding:26px;
     }
 
     .assessment-button{
         width:100%;
         text-align:center;
     }
-
 }
 
 @media(max-width:480px){
-
     .skill-hero{
-        padding:22px;
-    }
-
-    .topic-card{
         padding:20px;
     }
 
+    .topic-card{
+        padding:20px !important;
+    }
+
     .assessment-cta{
-        padding:24px;
+        padding:20px;
     }
 
     .topic-header-row{
@@ -1833,8 +1900,8 @@
     .topic-header-row .secondary-button{
         width:auto;
     }
-
 }
+
 
 /* ================= AI GENERATION LOADING ================= */
 
@@ -1844,37 +1911,263 @@
     transform: none;
 }
 
-/* Loading spinner */
 .topic-button:disabled::after {
     content: "◌  Generating AI Questions...";
     animation: aiGenerating 1.2s ease-in-out infinite;
 }
 
-/* Animated shine */
 .topic-button:disabled::before {
     animation: aiShine 1.5s linear infinite;
 }
 
 @keyframes aiGenerating {
-    0% {
-        opacity: 0.55;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.55;
-    }
+    0% { opacity: 0.55; }
+    50% { opacity: 1; }
+    100% { opacity: 0.55; }
 }
 
 @keyframes aiShine {
-    0% {
-        left: -120%;
-    }
+    0% { left: -120%; }
+    100% { left: 140%; }
+}
 
-    100% {
-        left: 140%;
-    }
+
+/* =========================================================
+   BUTTON FAMILY (Styles & Interactions)
+   Preserves All Button Designs and Colors
+========================================================= */
+
+.learning-overview > button,
+.topic-header-row .secondary-button,
+.topics-list .topic-card button:not(.secondary-button):not(.topic-button),
+.subtopic-card button:not(.topic-button),
+.assessment-button{
+    position:relative !important;
+    overflow:hidden !important;
+
+    min-height:40px !important;
+    height:40px !important;
+
+    padding:9px 17px !important;
+    border-radius:13px !important;
+
+    box-sizing:border-box !important;
+
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    font-weight:750 !important;
+}
+
+/* Moving glass reflection */
+.learning-overview > button::before,
+.topic-header-row .secondary-button::before,
+.topics-list .topic-card button:not(.secondary-button):not(.topic-button)::before,
+.subtopic-card button:not(.topic-button)::before,
+.assessment-button::before{
+    content:"" !important;
+
+    position:absolute !important;
+    top:-20% !important;
+    left:-120% !important;
+
+    width:65% !important;
+    height:140% !important;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent 0%,
+            rgba(255,255,255,.04) 30%,
+            rgba(255,255,255,.28) 50%,
+            rgba(255,255,255,.04) 70%,
+            transparent 100%
+        ) !important;
+
+    transform:skewX(-18deg) !important;
+    transition:left .65s cubic-bezier(.16,1,.3,1) !important;
+
+    pointer-events:none !important;
+    z-index:2 !important;
+}
+
+.learning-overview > button:hover::before,
+.topic-header-row .secondary-button:hover::before,
+.topics-list .topic-card button:not(.secondary-button):not(.topic-button):hover::before,
+.subtopic-card button:not(.topic-button):hover::before,
+.assessment-button:hover::before{
+    left:145% !important;
+}
+
+/* ---------- ADD TOPIC BUTTON ---------- */
+.learning-overview > button{
+    font-size:0 !important;
+    color:transparent !important;
+
+    border:1px solid rgba(110,231,183,.34) !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669 0%,
+            #10B981 48%,
+            #22C55E 100%
+        ) !important;
+
+    box-shadow:
+        0 8px 18px rgba(16,185,129,.20),
+        inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.learning-overview > button::after{
+    content:"+  Add Topic" !important;
+
+    position:relative !important;
+    z-index:3 !important;
+
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    color:#FFFFFF !important;
+    font-size:.78rem !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+    letter-spacing:.01em !important;
+
+    text-shadow:0 1px 3px rgba(0,0,0,.25) !important;
+}
+
+.learning-overview > button:hover{
+    transform:translateY(-3px) scale(1.025) !important;
+    border-color:rgba(167,243,208,.72) !important;
+
+    box-shadow:
+        0 13px 26px rgba(16,185,129,.27),
+        0 0 18px rgba(20,184,166,.10),
+        inset 0 1px 0 rgba(255,255,255,.27) !important;
+}
+
+.learning-overview > button:active{
+    transform:translateY(-1px) scale(.98) !important;
+}
+
+/* ---------- ADD SUB-TOPIC BUTTON ---------- */
+.topic-header-row .secondary-button{
+    font-size:0 !important;
+    color:transparent !important;
+
+    border:1px solid rgba(110,231,183,.34) !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669 0%,
+            #10B981 48%,
+            #22C55E 100%
+        ) !important;
+
+    box-shadow:
+        0 8px 18px rgba(16,185,129,.20),
+        inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.topic-header-row .secondary-button::after{
+    content:"+  Add Sub-topic" !important;
+
+    position:relative !important;
+    z-index:3 !important;
+
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    color:#FFFFFF !important;
+    font-size:.78rem !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+    letter-spacing:.01em !important;
+
+    text-shadow:0 1px 3px rgba(0,0,0,.25) !important;
+}
+
+.topic-header-row .secondary-button:hover{
+    transform:translateY(-3px) scale(1.025) !important;
+    border-color:rgba(167,243,208,.72) !important;
+
+    box-shadow:
+        0 13px 26px rgba(16,185,129,.27),
+        0 0 18px rgba(20,184,166,.10),
+        inset 0 1px 0 rgba(255,255,255,.27) !important;
+}
+
+.topic-header-row .secondary-button:active{
+    transform:translateY(-1px) scale(.98) !important;
+}
+
+/* ---------- DELETE TOPIC / DELETE BUTTONS ---------- */
+.topics-list .topic-card button:not(.secondary-button):not(.topic-button),
+.subtopic-card button:not(.topic-button){
+    font-size:0 !important;
+    color:transparent !important;
+
+    border:1px solid rgba(248,113,113,.34) !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #991B1B 0%,
+            #DC2626 50%,
+            #B91C1C 100%
+        ) !important;
+
+    box-shadow:
+        0 8px 18px rgba(220,38,38,.20),
+        inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+
+.topics-list .topic-card button:not(.secondary-button):not(.topic-button)::after,
+.subtopic-card button:not(.topic-button)::after{
+    position:relative !important;
+    z-index:3 !important;
+
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    color:#FFFFFF !important;
+    font-size:.78rem !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+
+    text-shadow:0 1px 3px rgba(0,0,0,.25) !important;
+}
+
+.topics-list .topic-card button:not(.secondary-button):not(.topic-button)::after{
+    content:"✦  Delete Topic" !important;
+}
+
+.subtopic-card button:not(.topic-button)::after{
+    content:"✦  Delete" !important;
+}
+
+.topics-list .topic-card button:not(.secondary-button):not(.topic-button):hover,
+.subtopic-card button:not(.topic-button):hover{
+    transform:translateY(-3px) scale(1.025) !important;
+    border-color:rgba(252,165,165,.72) !important;
+
+    box-shadow:
+        0 13px 26px rgba(220,38,38,.27),
+        0 0 18px rgba(239,68,68,.10),
+        inset 0 1px 0 rgba(255,255,255,.26) !important;
+}
+
+/* Button contrast */
+.topic-header-row .secondary-button,
+.topics-list .topic-card button,
+.subtopic-card button,
+.learning-overview > button,
+.assessment-button{
+    text-shadow:0 1px 3px rgba(0,0,0,.28) !important;
 }
