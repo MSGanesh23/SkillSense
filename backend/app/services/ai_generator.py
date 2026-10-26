@@ -293,6 +293,68 @@ def _validate_questions(
     return validated_questions
 
 
+def _generate_with_openai_compat(
+    prompt: str,
+    base_url: str,
+    api_key: str,
+    model: str,
+    provider_name: str,
+) -> str:
+    """
+    Generic helper for any OpenAI-compatible chat completions API.
+    Used for both OpenRouter and Groq since they share the same API shape.
+    """
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+
+    payload = {
+        "model": model,
+        "messages": [
+            {
+                "role": "system",
+                "content": (
+                    "You generate accurate, scope-specific educational "
+                    "MCQs. Follow the requested learning hierarchy and "
+                    "return only valid JSON."
+                ),
+            },
+            {
+                "role": "user",
+                "content": prompt,
+            },
+        ],
+        "response_format": {
+            "type": "json_object",
+        },
+    }
+
+    with httpx.Client(timeout=60.0) as client:
+        response = client.post(
+            f"{base_url}/chat/completions",
+            headers=headers,
+            json=payload,
+        )
+
+    response.raise_for_status()
+
+    data = response.json()
+    choices = data.get("choices", [])
+
+    if not choices:
+        raise ValueError(f"{provider_name} returned no choices.")
+
+    message = choices[0].get("message", {})
+    content = message.get("content")
+
+    if not content:
+        raise ValueError(f"{provider_name} returned no question content.")
+
+    return content
+
+
 def _generate_with_gemini(prompt: str) -> str:
     """Generate questions using the Gemini API."""
 
@@ -345,61 +407,6 @@ def _generate_with_gemini(prompt: str) -> str:
     return parts[0]["text"]
 
 
-def _generate_with_openai(prompt: str) -> str:
-    """Generate questions using the OpenAI API."""
-
-    url = "https://api.openai.com/v1/chat/completions"
-
-    headers = {
-        "Authorization": f"Bearer {settings.openai_api_key}",
-        "Content-Type": "application/json",
-    }
-
-    payload = {
-        "model": "gpt-4o-mini",
-        "messages": [
-            {
-                "role": "system",
-                "content": (
-                    "You generate accurate, scope-specific educational "
-                    "MCQs. Follow the requested learning hierarchy and "
-                    "return only valid JSON."
-                ),
-            },
-            {
-                "role": "user",
-                "content": prompt,
-            },
-        ],
-        "response_format": {
-            "type": "json_object",
-        },
-    }
-
-    with httpx.Client(timeout=60.0) as client:
-        response = client.post(
-            url,
-            headers=headers,
-            json=payload,
-        )
-
-    response.raise_for_status()
-
-    data = response.json()
-    choices = data.get("choices", [])
-
-    if not choices:
-        raise ValueError("OpenAI returned no choices.")
-
-    message = choices[0].get("message", {})
-    content = message.get("content")
-
-    if not content:
-        raise ValueError("OpenAI returned no question content.")
-
-    return content
-
-
 def generate_questions_for_subtopic(
     skill_name: str,
     topic_name: str,
@@ -415,6 +422,7 @@ def generate_questions_for_subtopic(
     """
     Generate and validate MCQs for the exact Skill -> Topic -> SubTopic.
 
+    Attempts providers in order: OpenRouter -> Groq -> Gemini.
     The function supports Easy, Medium, Hard, and Custom difficulty.
     It does not silently generate generic fallback questions when AI
     generation is unavailable.
@@ -455,54 +463,60 @@ def generate_questions_for_subtopic(
 
     provider_errors = []
 
-    # Try Gemini first.
+    # --- Provider 1: OpenRouter (free, unlimited) ---
+    if settings.openrouter_api_key:
+        try:
+            raw_text = _generate_with_openai_compat(
+                prompt=prompt,
+                base_url="https://openrouter.ai/api/v1",
+                api_key=settings.openrouter_api_key,
+                model="openrouter/auto",
+                provider_name="OpenRouter",
+            )
+            parsed_questions = _parse_response(raw_text)
+            return _validate_questions(parsed_questions, count, difficulty)
+
+        except Exception as error:
+            logger.warning("OpenRouter question generation failed: %s", error)
+            provider_errors.append(f"OpenRouter: {error}")
+
+    # --- Provider 2: Groq (free, unlimited, very fast) ---
+    if settings.groq_api_key:
+        try:
+            raw_text = _generate_with_openai_compat(
+                prompt=prompt,
+                base_url="https://api.groq.com/openai/v1",
+                api_key=settings.groq_api_key,
+                model="llama-3.1-8b-instant",
+                provider_name="Groq",
+            )
+            parsed_questions = _parse_response(raw_text)
+            return _validate_questions(parsed_questions, count, difficulty)
+
+        except Exception as error:
+            logger.warning("Groq question generation failed: %s", error)
+            provider_errors.append(f"Groq: {error}")
+
+    # --- Provider 3: Gemini (free tier) ---
     if settings.gemini_api_key:
         try:
             raw_text = _generate_with_gemini(prompt)
             parsed_questions = _parse_response(raw_text)
-
-            return _validate_questions(
-                parsed_questions,
-                count,
-                difficulty,
-            )
+            return _validate_questions(parsed_questions, count, difficulty)
 
         except Exception as error:
-            logger.warning(
-                "Gemini question generation failed: %s",
-                error,
-            )
+            logger.warning("Gemini question generation failed: %s", error)
             provider_errors.append(f"Gemini: {error}")
 
-    # Try OpenAI if Gemini is unavailable or fails.
-    if settings.openai_api_key:
-        try:
-            raw_text = _generate_with_openai(prompt)
-            parsed_questions = _parse_response(raw_text)
-
-            return _validate_questions(
-                parsed_questions,
-                count,
-                difficulty,
-            )
-
-        except Exception as error:
-            logger.warning(
-                "OpenAI question generation failed: %s",
-                error,
-            )
-            provider_errors.append(f"OpenAI: {error}")
-
-    # Do not save fake or generic questions as if they were AI-generated.
-    if not settings.gemini_api_key and not settings.openai_api_key:
+    # All providers either unconfigured or failed.
+    if not provider_errors:
         raise RuntimeError(
             "AI question generation is not configured. "
-            "Configure GEMINI_API_KEY or OPENAI_API_KEY."
+            "Set at least one of: OPENROUTER_API_KEY, GROQ_API_KEY, GEMINI_API_KEY."
         )
 
     error_details = "; ".join(provider_errors)
-
     raise RuntimeError(
-        "Question generation failed validation or the AI provider "
-        f"failed. No questions were generated. Details: {error_details}"
+        "All AI providers failed. No questions were generated. "
+        f"Details: {error_details}"
     )

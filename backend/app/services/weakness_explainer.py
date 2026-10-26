@@ -124,9 +124,83 @@ def generate_remediation_for_assessment(
             )
 
             exp_obj = None
+            provider_errors = []
 
-            # Try Gemini API if key exists
-            if settings.gemini_api_key:
+            def _call_openai_compat_remediation(base_url, api_key, model, provider_name):
+                headers = {
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                }
+                payload = {
+                    "model": model,
+                    "messages": [
+                        {"role": "system", "content": "You are an expert technical tutor. Return only valid JSON."},
+                        {"role": "user", "content": prompt},
+                    ],
+                    "response_format": {"type": "json_object"},
+                }
+                with httpx.Client(timeout=30.0) as client:
+                    resp = client.post(f"{base_url}/chat/completions", headers=headers, json=payload)
+                resp.raise_for_status()
+                data = resp.json()
+                choices = data.get("choices", [])
+                if not choices:
+                    raise ValueError(f"{provider_name} returned no choices.")
+                content = choices[0].get("message", {}).get("content")
+                if not content:
+                    raise ValueError(f"{provider_name} returned no content.")
+                return content
+
+            # --- Provider 1: OpenRouter (free, unlimited) ---
+            if settings.openrouter_api_key:
+                try:
+                    raw_text = _call_openai_compat_remediation(
+                        base_url="https://openrouter.ai/api/v1",
+                        api_key=settings.openrouter_api_key,
+                        model="openrouter/auto",
+                        provider_name="OpenRouter",
+                    )
+                    parsed = json.loads(raw_text)
+                    exp_obj = RemediationExplanation(
+                        subtopic_id=sub_id,
+                        subtopic_name=diag.subtopic_name,
+                        concept_explanation=parsed["concept_explanation"],
+                        misconception_analysis=parsed["misconception_analysis"],
+                        correct_concept=parsed["correct_concept"],
+                        example=parsed["example"],
+                        key_takeaways=parsed["key_takeaways"],
+                        recommended_material=f"Study Guide: {diag.subtopic_name}",
+                    )
+                except Exception as e:
+                    logger.warning("OpenRouter remediation failed: %s", e)
+                    provider_errors.append(f"OpenRouter: {e}")
+
+            # --- Provider 2: Groq (free, unlimited, very fast) ---
+            if not exp_obj and settings.groq_api_key:
+                try:
+                    raw_text = _call_openai_compat_remediation(
+                        base_url="https://api.groq.com/openai/v1",
+                        api_key=settings.groq_api_key,
+                        model="llama-3.1-8b-instant",
+                        provider_name="Groq",
+                    )
+                    parsed = json.loads(raw_text)
+                    exp_obj = RemediationExplanation(
+                        subtopic_id=sub_id,
+                        subtopic_name=diag.subtopic_name,
+                        concept_explanation=parsed["concept_explanation"],
+                        misconception_analysis=parsed["misconception_analysis"],
+                        correct_concept=parsed["correct_concept"],
+                        example=parsed["example"],
+                        key_takeaways=parsed["key_takeaways"],
+                        recommended_material=f"Study Guide: {diag.subtopic_name}",
+                    )
+                except Exception as e:
+                    logger.warning("Groq remediation failed: %s", e)
+                    provider_errors.append(f"Groq: {e}")
+
+            # --- Provider 3: Gemini (free tier) ---
+            if not exp_obj and settings.gemini_api_key:
                 try:
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={settings.gemini_api_key}"
                     headers = {"Content-Type": "application/json"}
@@ -151,13 +225,16 @@ def generate_remediation_for_assessment(
                                 recommended_material=f"Study Guide: {diag.subtopic_name}",
                             )
                 except Exception as e:
-                    logger.warning(f"Gemini API call failed for remediation: {e}")
+                    logger.warning("Gemini remediation failed: %s", e)
+                    provider_errors.append(f"Gemini: {e}")
 
+            # --- Hardcoded fallback (last resort) ---
             if not exp_obj:
                 exp_obj = _generate_fallback_explanation(diag.subtopic_name)
                 exp_obj.subtopic_id = sub_id
 
             explanations.append(exp_obj)
+
 
     return RemediationResponse(
         assessment_id=assessment.id,

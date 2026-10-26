@@ -8,8 +8,9 @@ class Settings(BaseSettings):
     db_port : int = 3306
     db_name : str
 
+    openrouter_api_key: str | None = None
+    groq_api_key: str | None = None
     gemini_api_key: str | None = None
-    openai_api_key: str | None = None
     jwt_secret: str = "skillsense-super-secret-jwt-key-2026"
     jwt_algorithm: str = "HS256"
 
