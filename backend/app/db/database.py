@@ -1,6 +1,7 @@
 import certifi
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from app.core.config import settings
@@ -51,7 +52,14 @@ def create_tables() -> None:
     from app.db.models.subtopic_performance import SubTopicPerformance
     from app.db.models.mastery import MasteryRecord
     
-    Base.metadata.create_all(bind=engine)
+    # Create each table safely so concurrent serverless cold starts do not crash on error 1050.
+    for table in Base.metadata.sorted_tables:
+        try:
+            table.create(bind=engine, checkfirst=True)
+        except OperationalError as e:
+            err_code = getattr(getattr(e, "orig", None), "args", [None])[0]
+            if err_code != 1050:
+                raise
 
     # Safe schema migration check: ensure user_id column exists on assessments
     with engine.connect() as conn:
