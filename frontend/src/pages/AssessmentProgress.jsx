@@ -452,10 +452,8 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import { getAssessmentHistory, getSkills } from "../services/api";
 import "./AssessmentProgress.css";
-
-const API_URL = "http://127.0.0.1:8000/assessments/history";
-const SKILLS_API_URL = "http://127.0.0.1:8000/skills";
 
 function formatDate(dateValue) {
   if (!dateValue) return "-";
@@ -503,23 +501,10 @@ export default function AssessmentProgress() {
       setLoading(true);
       setError("");
 
-      const [assessmentResponse, skillsResponse] = await Promise.all([
-        fetch(API_URL),
-        fetch(SKILLS_API_URL),
+      const [assessmentData, skillsData] = await Promise.all([
+        getAssessmentHistory(),
+        getSkills(),
       ]);
-
-      if (!assessmentResponse.ok) {
-        throw new Error(
-          `Assessment history HTTP ${assessmentResponse.status}`
-        );
-      }
-
-      if (!skillsResponse.ok) {
-        throw new Error(`Skills HTTP ${skillsResponse.status}`);
-      }
-
-      const assessmentData = await assessmentResponse.json();
-      const skillsData = await skillsResponse.json();
 
       setAssessments(
         Array.isArray(assessmentData) ? assessmentData : []

@@ -1,7 +1,9 @@
 fastapi
 uvicorn[standard]
-sqlalchemy 
+sqlalchemy
 pymysql
+cryptography
+certifi
 pydantic-settings
 httpx
 PyJWT

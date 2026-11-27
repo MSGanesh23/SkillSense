@@ -7,12 +7,14 @@ class Settings(BaseSettings):
     db_host : str = "localhost"
     db_port : int = 3306
     db_name : str
+    db_ssl : bool = False
 
     openrouter_api_key: str | None = None
     groq_api_key: str | None = None
     gemini_api_key: str | None = None
     jwt_secret: str = "skillsense-super-secret-jwt-key-2026"
     jwt_algorithm: str = "HS256"
+    cors_origins: str = "*"
 
     model_config = SettingsConfigDict(
         env_file=".env",

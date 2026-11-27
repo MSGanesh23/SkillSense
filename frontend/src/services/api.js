@@ -192,7 +192,7 @@
 //   return apiRequest(`/skills/${skillId}/mastery`);
 // }
 
-const API_BASE_URL = "/api";
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "/api").replace(/\/+$/, "");
 
 export function getAuthToken() {
   return localStorage.getItem("skillsense_token");
@@ -387,6 +387,10 @@ export async function createAssessmentSession(skillId, title = null) {
 
 export async function getAssessment(assessmentId) {
   return apiRequest(`/assessments/${assessmentId}`);
+}
+
+export async function getAssessmentHistory() {
+  return apiRequest("/assessments/history");
 }
 
 export async function submitAssessment(assessmentId, answers) {

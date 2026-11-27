@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.core.config import settings
 from app.db.database import create_tables
 
 from app.routes.skills import router as skills_router
@@ -21,10 +22,18 @@ app = FastAPI(
     version="0.1.0"
 )
 
+raw_origins = settings.cors_origins.strip()
+if raw_origins == "*":
+    allow_origins = ["*"]
+    allow_credentials = False
+else:
+    allow_origins = [origin.strip().rstrip("/") for origin in raw_origins.split(",") if origin.strip()]
+    allow_credentials = True
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=allow_origins,
+    allow_credentials=allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )

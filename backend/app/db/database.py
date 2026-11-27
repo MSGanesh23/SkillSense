@@ -1,3 +1,4 @@
+import certifi
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
@@ -14,9 +15,19 @@ url = URL.create(
 
 )
 
+# Enable TLS automatically for managed cloud MySQL providers like TiDB Cloud.
+use_ssl = (
+    settings.db_ssl
+    or settings.db_host.endswith("tidbcloud.com")
+    or settings.db_port == 4000
+)
+connect_args = {"ssl": {"ca": certifi.where()}} if use_ssl else {}
+
 engine = create_engine(
     url,
+    connect_args = connect_args,
     pool_pre_ping = True,
+    pool_recycle = 300,
 )
 
 SessionLocal = sessionmaker(
